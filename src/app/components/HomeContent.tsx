@@ -11,6 +11,13 @@ interface HomeContentProps {
 export default function HomeContent({ assets, projects }: HomeContentProps) {
 	return (
 		<div>
+			<h1 className="text-4xl font-bold font-serif">Kevin Beronilla</h1>
+			<h2 className="text-2xl font-bold">Software Engineer</h2>
+			<p>
+				Kevin Beronilla is a software engineer with a passion for
+				building web applications.
+			</p>
+			<p></p>
 			<div>
 				Assets:
 				{JSON.stringify(assets)}

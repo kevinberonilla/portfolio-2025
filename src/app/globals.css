@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Libre+Bodoni:ital@0;1&display=swap');
 @import 'tailwindcss';
 
 :root {
@@ -5,11 +6,10 @@
 	--foreground: #171717;
 }
 
-@theme inline {
-	--color-background: var(--background);
-	--color-foreground: var(--foreground);
-	--font-sans: var(--font-geist-sans);
-	--font-mono: var(--font-geist-mono);
+@theme {
+	--font-sans: 'Inter', 'HelveticaNeue-Light', 'Helvetica Neue Light',
+		'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+	--font-serif: 'Libre Bodoni', serif;
 }
 
 @media (prefers-color-scheme: dark) {
