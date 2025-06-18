@@ -2,6 +2,7 @@
 
 import { Asset } from 'contentful-management';
 import { Project } from '../services/projects';
+import ThemeSwitch from './ui/ThemeSwitch';
 
 interface HomeContentProps {
 	assets: Asset[];
@@ -11,8 +12,14 @@ interface HomeContentProps {
 export default function HomeContent({ assets, projects }: HomeContentProps) {
 	return (
 		<div>
-			<h1 className="text-4xl font-bold font-serif">Kevin Beronilla</h1>
-			<h2 className="text-2xl font-bold">Software Engineer</h2>
+			<ThemeSwitch />
+			<section className="bg-gradient-to-r from-orange-50 to-slate-200 dark:from-orange-800 dark:to-slate-800">
+				<h1 className="text-4xl font-bold font-serif">
+					👋 Hi! My name is Kevin Beronilla and I create visual
+					experiences.
+				</h1>
+				<h2 className="text-2xl font-bold">Software Engineer</h2>
+			</section>
 			<p>
 				Kevin Beronilla is a software engineer with a passion for
 				building web applications.
