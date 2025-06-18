@@ -17,10 +17,7 @@ export default async function HomeServerComponent() {
 		return <div>No data available</div>;
 	}
 
-	const {
-		includes: { Asset: assets },
-		items: projects,
-	} = data;
+	const { categories, projects } = data;
 
-	return <HomeContent assets={assets} projects={projects} />;
+	return <HomeContent categories={categories} projects={projects} />;
 }

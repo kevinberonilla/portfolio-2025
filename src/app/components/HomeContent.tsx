@@ -1,20 +1,23 @@
 'use client';
 
-import { Asset } from 'contentful-management';
+import { cn } from '../lib/utils';
 import { Project } from '../services/projects';
 import ThemeSwitch from './ui/ThemeSwitch';
 
 interface HomeContentProps {
-	assets: Asset[];
+	categories: string[];
 	projects: Project[];
 }
 
-export default function HomeContent({ assets, projects }: HomeContentProps) {
+export default function HomeContent({
+	categories,
+	projects,
+}: HomeContentProps) {
 	return (
 		<div>
 			<ThemeSwitch />
 			<section className="bg-gradient-to-r from-orange-50 to-slate-200 dark:from-orange-800 dark:to-slate-800">
-				<h1 className="text-4xl font-bold font-serif">
+				<h1 className={cn('text-4xl font-bold font-serif')}>
 					👋 Hi! My name is Kevin Beronilla and I create visual
 					experiences.
 				</h1>
@@ -26,8 +29,8 @@ export default function HomeContent({ assets, projects }: HomeContentProps) {
 			</p>
 			<p></p>
 			<div>
-				Assets:
-				{JSON.stringify(assets)}
+				Categories:
+				{JSON.stringify(categories)}
 			</div>
 			<hr />
 			<div>
