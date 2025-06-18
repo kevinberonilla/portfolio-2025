@@ -6,19 +6,19 @@
 	--foreground: #171717;
 }
 
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background: #0a0a0a;
+		--foreground: #ededed;
+	}
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
 	--font-sans: 'Inter', 'HelveticaNeue-Light', 'Helvetica Neue Light',
 		'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
 	--font-serif: 'Libre Bodoni', serif;
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
-	}
 }
 
 body {
