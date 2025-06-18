@@ -4,7 +4,6 @@ export type Project = EntryProps<{
 	appExchangeListing?: string;
 	categories: string[];
 	contributions: string;
-	demoSite?: string;
 	endYear?: number;
 	endYearOrder?: number;
 	githubRepository?: string;
