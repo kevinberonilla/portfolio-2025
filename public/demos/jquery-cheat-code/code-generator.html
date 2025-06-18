@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,12 +16,15 @@
                 padding: 0;
                 margin: 0;
             }
-            html, body {
+
+            html,
+            body {
                 width: 100%;
                 height: 100%;
                 padding: 0;
                 margin: 0;
             }
+
             body {
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
@@ -31,14 +35,22 @@
                 font-weight: 400;
                 font-size: 16px;
                 line-height: 24px;
-                background: -moz-linear-gradient(top,  #e4af79 0%, #dc8e8e 100%); /* FF3.6+ */
-                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e4af79), color-stop(100%,#dc8e8e)); /* Chrome,Safari4+ */
-                background: -webkit-linear-gradient(top,  #e4af79 0%,#dc8e8e 100%); /* Chrome10+,Safari5.1+ */
-                background: -o-linear-gradient(top,  #e4af79 0%,#dc8e8e 100%); /* Opera 11.10+ */
-                background: -ms-linear-gradient(top,  #e4af79 0%,#dc8e8e 100%); /* IE10+ */
-                background: linear-gradient(to bottom,  #e4af79 0%,#dc8e8e 100%); /* W3C */
-                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4af79', endColorstr='#dc8e8e',GradientType=0 ); /* IE6-9 */
+                /* FF3.6+ */
+                background: -moz-linear-gradient(top, #e4af79 0%, #dc8e8e 100%);
+                /* Chrome,Safari4+ */
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e4af79), color-stop(100%, #dc8e8e));
+                /* Chrome10+,Safari5.1+ */
+                background: -webkit-linear-gradient(top, #e4af79 0%, #dc8e8e 100%);
+                /* Opera 11.10+ */
+                background: -o-linear-gradient(top, #e4af79 0%, #dc8e8e 100%);
+                /* IE10+ */
+                background: -ms-linear-gradient(top, #e4af79 0%, #dc8e8e 100%);
+                /* W3C */
+                background: linear-gradient(to bottom, #e4af79 0%, #dc8e8e 100%);
+                /* IE6-9 */
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e4af79', endColorstr='#dc8e8e', GradientType=0);
             }
+
             .background-image {
                 position: fixed;
                 top: 0;
@@ -51,14 +63,18 @@
                 opacity: 0.25;
                 pointer-events: none;
             }
-            a, a:visited {
+
+            a,
+            a:visited {
                 opacity: 1;
                 -webkit-transition: all 250ms ease;
                 transition: all 250ms ease;
             }
+
             a:hover {
                 opacity: 0.5;
             }
+
             header {
                 position: absolute;
                 top: 0;
@@ -67,6 +83,7 @@
                 height: 110px;
                 background-color: #1e1e1e;
             }
+
             #kb-logo {
                 position: absolute;
                 top: 30px;
@@ -81,25 +98,31 @@
                 -webkit-transition: all 250ms ease;
                 transition: all 250ms ease;
             }
+
             #kb-logo:hover {
                 opacity: 1;
             }
+
             #kb-logo img {
                 width: 28px;
                 height: auto;
                 padding-top: 4px;
                 padding-left: 1px;
             }
+
             #kb-logo:focus {
                 outline: none;
             }
+
             nav {
                 position: absolute;
                 top: 34px;
                 right: 34px;
                 display: inline-block;
             }
-            nav a.button, nav a.button:visited {
+
+            nav a.button,
+            nav a.button:visited {
                 display: inline-block;
                 margin-left: 10px;
                 max-width: initial;
@@ -109,12 +132,14 @@
                 font-weight: 300;
                 text-transform: none;
             }
+
             nav h1 {
                 color: #f8f5f0;
                 font-size: 20px;
                 display: inline-block;
                 margin-right: 16px;
             }
+
             h2 {
                 font-size: 24px;
                 max-width: 600px;
@@ -123,6 +148,7 @@
                 padding-top: 40px;
                 color: #333;
             }
+
             #input-container {
                 padding: 20px;
                 background-color: rgba(255, 255, 255, 0.15);
@@ -132,6 +158,7 @@
                 position: relative;
                 overflow: hidden;
             }
+
             #user-input {
                 font-family: 'PT Mono', monospace;
                 font-size: 18px;
@@ -151,11 +178,13 @@
                 -o-transition: all 350ms ease-in-out;
                 transition: all 350ms ease-in-out;
             }
+
             #user-input.final {
                 opacity: 1;
                 -webkit-transform: translateX(-50%) scale(1.25);
                 transform: translateX(-50%) scale(1.25);
             }
+
             #input-container .timer {
                 display: block;
                 position: absolute;
@@ -167,6 +196,7 @@
                 bottom: 0;
                 left: 0;
             }
+
             .container {
                 width: 100%;
                 padding: 0 40px;
@@ -175,7 +205,9 @@
                 -webkit-transform: translateY(-50%);
                 transform: translateY(-50%);
             }
-            a.button, a.button:visited {
+
+            a.button,
+            a.button:visited {
                 display: block;
                 padding: 8px 0;
                 margin: 14px auto 0;
@@ -189,6 +221,7 @@
                 border-radius: 3px;
                 text-transform: uppercase;
             }
+
             #copy {
                 margin-top: 40px;
                 opacity: 0;
@@ -199,43 +232,55 @@
                 -o-transition: all 350ms ease-in-out;
                 transition: all 350ms ease-in-out;
             }
+
             #copy.show {
                 opacity: 1;
                 pointer-events: all;
             }
-            #copy[disabled], #copy[disabled].show {
+
+            #copy[disabled],
+            #copy[disabled].show {
                 pointer-events: none;
                 background-color: #8c8985;
             }
+
             @media only screen and (max-width: 768px) {
                 pre {
                     font-size: 14px;
                     line-height: 20px;
                 }
-                #prev, #next {
+
+                #prev,
+                #next {
                     display: none;
                 }
+
                 .mobile-off {
                     display: none !important;
                 }
+
                 nav {
                     top: 42px;
                 }
+
                 h2 {
                     font-size: 18px;
                 }
             }
+
             @media only screen and (max-width: 480px) {
                 pre {
                     font-size: 10px;
                     line-height: 16px;
                 }
+
                 nav h1 {
                     font-size: 16px;
                 }
             }
         </style>
     </head>
+
     <body>
         <div class="background-image"></div>
         <header>
@@ -255,24 +300,24 @@
             <a href="#" id="copy" class="button">Copy code</a>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="js/jquery.cheat-code.js"></script>
+        <script src="./js/jquery.cheat-code.js"></script>
         <script>
             /* ----------------------------------------
             Generator Scripts
             ---------------------------------------- */
-            $(document).ready(function() {
+            $(document).ready(function () {
                 var userInput = $('#user-input'),
                     timer = $('.timer'),
                     copyButton = $('#copy'),
                     shouldReset = false,
                     timeout;
-                
+
                 function finalize() {
                     shouldReset = true;
                     userInput.addClass('final');
                     copyButton.addClass('show');
                 }
-                
+
                 function animateTimeout() {
                     timer.stop(true, true)
                         .css('width', 0)
@@ -281,42 +326,42 @@
                         }, 1000);
                 }
                 function selectText(element) {
-                    var text = document.getElementById(element), 
+                    var text = document.getElementById(element),
                         range,
                         selection;
-                    
+
                     if (document.body.createTextRange) {
                         range = document.body.createTextRange();
                         range.moveToElementText(text);
                         range.select();
                     } else if (window.getSelection) {
-                        selection = window.getSelection();        
+                        selection = window.getSelection();
                         range = document.createRange();
                         range.selectNodeContents(text);
                         selection.removeAllRanges();
                         selection.addRange(range);
                     }
                 }
-                
+
                 function copyCode() {
                     selectText('user-input');
-                    
+
                     try {
                         document.execCommand('copy');
-                        
+
                         copyButton.text('Copied')
                             .attr('disabled', true);
-                    } catch(err) {
+                    } catch (err) {
                         copyButton.text('Unable to copy')
                             .attr('disabled', true);
-                        
+
                         alert('Error: unable to copy code. You browser does not support copying to the clipboard.');
                     }
                 }
-                
+
                 copyButton.click(copyCode);
-                
-                $(document).keyup(function(e) {
+
+                $(document).keyup(function (e) {
                     if (shouldReset) {
                         userInput.empty()
                             .removeClass('final');
@@ -325,7 +370,7 @@
                             .removeAttr('disabled')
                             .text('Copy code');
                     }
-                    
+
                     clearTimeout(timeout);
                     timeout = setTimeout(finalize, 1000);
                     userInput.append(e.which.toString());
@@ -334,4 +379,5 @@
             });
         </script>
     </body>
+
 </html>

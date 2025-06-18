@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,12 +16,15 @@
                 padding: 0;
                 margin: 0;
             }
-            html, body {
+
+            html,
+            body {
                 width: 100%;
                 height: 100%;
                 padding: 0;
                 margin: 0;
             }
+
             body {
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
@@ -31,14 +35,22 @@
                 font-weight: 400;
                 font-size: 16px;
                 line-height: 24px;
-                background: -moz-linear-gradient(top,  #e4af79 0%, #dc8e8e 100%); /* FF3.6+ */
-                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e4af79), color-stop(100%,#dc8e8e)); /* Chrome,Safari4+ */
-                background: -webkit-linear-gradient(top,  #e4af79 0%,#dc8e8e 100%); /* Chrome10+,Safari5.1+ */
-                background: -o-linear-gradient(top,  #e4af79 0%,#dc8e8e 100%); /* Opera 11.10+ */
-                background: -ms-linear-gradient(top,  #e4af79 0%,#dc8e8e 100%); /* IE10+ */
-                background: linear-gradient(to bottom,  #e4af79 0%,#dc8e8e 100%); /* W3C */
-                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4af79', endColorstr='#dc8e8e',GradientType=0 ); /* IE6-9 */
+                background: -moz-linear-gradient(top, #e4af79 0%, #dc8e8e 100%);
+                /* FF3.6+ */
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e4af79), color-stop(100%, #dc8e8e));
+                /* Chrome,Safari4+ */
+                background: -webkit-linear-gradient(top, #e4af79 0%, #dc8e8e 100%);
+                /* Chrome10+,Safari5.1+ */
+                background: -o-linear-gradient(top, #e4af79 0%, #dc8e8e 100%);
+                /* Opera 11.10+ */
+                background: -ms-linear-gradient(top, #e4af79 0%, #dc8e8e 100%);
+                /* IE10+ */
+                background: linear-gradient(to bottom, #e4af79 0%, #dc8e8e 100%);
+                /* W3C */
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e4af79', endColorstr='#dc8e8e', GradientType=0);
+                /* IE6-9 */
             }
+
             .background-image {
                 position: fixed;
                 top: 0;
@@ -51,14 +63,18 @@
                 opacity: 0.25;
                 pointer-events: none;
             }
-            a, a:visited {
+
+            a,
+            a:visited {
                 opacity: 1;
                 -webkit-transition: all 250ms ease;
                 transition: all 250ms ease;
             }
+
             a:hover {
                 opacity: 0.5;
             }
+
             header {
                 position: absolute;
                 top: 0;
@@ -67,6 +83,7 @@
                 height: 110px;
                 background-color: #1e1e1e;
             }
+
             #kb-logo {
                 position: absolute;
                 top: 30px;
@@ -81,25 +98,31 @@
                 -webkit-transition: all 250ms ease;
                 transition: all 250ms ease;
             }
+
             #kb-logo:hover {
                 opacity: 1;
             }
+
             #kb-logo img {
                 width: 28px;
                 height: auto;
                 padding-top: 4px;
                 padding-left: 1px;
             }
+
             #kb-logo:focus {
                 outline: none;
             }
+
             nav {
                 position: absolute;
                 top: 34px;
                 right: 34px;
                 display: inline-block;
             }
-            nav a.button, nav a.button:visited {
+
+            nav a.button,
+            nav a.button:visited {
                 display: inline-block;
                 margin-left: 10px;
                 max-width: initial;
@@ -109,12 +132,14 @@
                 font-weight: 300;
                 text-transform: none;
             }
+
             nav h1 {
                 color: #f8f5f0;
                 font-size: 20px;
                 display: inline-block;
                 margin-right: 16px;
             }
+
             pre {
                 font-family: 'PT Mono', monospace;
                 font-size: 18px;
@@ -127,6 +152,7 @@
                 background-color: #f8f5f0;
                 border-radius: 3px;
             }
+
             h2 {
                 font-size: 24px;
                 max-width: 600px;
@@ -135,6 +161,7 @@
                 padding-top: 40px;
                 color: #333;
             }
+
             .container {
                 width: 100%;
                 padding: 0 40px;
@@ -143,7 +170,9 @@
                 -webkit-transform: translateY(-50%);
                 transform: translateY(-50%);
             }
-            a.button, a.button:visited {
+
+            a.button,
+            a.button:visited {
                 display: block;
                 padding: 8px 0;
                 margin: 14px auto 0;
@@ -157,6 +186,7 @@
                 border-radius: 3px;
                 text-transform: uppercase;
             }
+
             .kitten {
                 display: none;
                 margin: 0 auto;
@@ -165,38 +195,48 @@
                 border-radius: 3px;
                 overflow: hidden;
             }
+
             .kitten img {
                 display: block;
             }
+
             @media only screen and (max-width: 768px) {
                 pre {
                     font-size: 14px;
                     line-height: 20px;
                 }
-                #prev, #next {
+
+                #prev,
+                #next {
                     display: none;
                 }
+
                 .mobile-off {
                     display: none !important;
                 }
+
                 nav {
                     top: 42px;
                 }
+
                 h2 {
                     font-size: 18px;
                 }
             }
+
             @media only screen and (max-width: 480px) {
                 pre {
                     font-size: 10px;
                     line-height: 16px;
                 }
+
                 nav h1 {
                     font-size: 16px;
                 }
             }
         </style>
     </head>
+
     <body>
         <div class="background-image"></div>
         <header>
@@ -224,94 +264,94 @@
             </pre>
             <div class="kitten"><img src="https://placekitten.com/g/560/304"></div>
             <h2>Press <span class="fa fa-chevron-circle-up"></span> <span class="fa fa-chevron-circle-up"></span> <span class="fa fa-chevron-circle-right"></span> <span class="fa fa-chevron-circle-down"></span> in quick succession to see a kitten.</h2>
-            <a href="code-generator.html" class="button">Key Code Generator</a>
+            <a href="./code-generator.html" class="button">Key Code Generator</a>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="js/jquery.cheat-code.js"></script>
+        <script src="./js/jquery.cheat-code.js"></script>
         <script>
             /* ----------------------------------------
             prettyPre Plugin by Tim Medora
             ---------------------------------------- */
-            (function( $ ) {
-                
-                $.fn.prettyPre = function( method ) {
+            (function ($) {
+
+                $.fn.prettyPre = function (method) {
                     var defaults = {
                         ignoreExpression: /\s/ // what should be ignored?
                     };
                     var methods = {
-                        init: function( options ) {
-                            this.each( function() {
-                                var context = $.extend( {}, defaults, options );
-                                var $obj = $( this );
+                        init: function (options) {
+                            this.each(function () {
+                                var context = $.extend({}, defaults, options);
+                                var $obj = $(this);
                                 var usingInnerText = true;
-                                var text = $obj.get( 0 ).innerText;
+                                var text = $obj.get(0).innerText;
                                 // some browsers support innerText...some don't...some ONLY work with innerText.
-                                if ( typeof text == "undefined" ) {
+                                if (typeof text == "undefined") {
                                     text = $obj.html();
                                     usingInnerText = false;
                                 }
                                 // use the first line as a baseline for how many unwanted leading whitespace characters are present
                                 var superfluousSpaceCount = 0;
                                 var pos = 0;
-                                var currentChar = text.substring( 0, 1 );
-                                while ( context.ignoreExpression.test( currentChar ) ) {
-                                    if(currentChar !== "\n"){
+                                var currentChar = text.substring(0, 1);
+                                while (context.ignoreExpression.test(currentChar)) {
+                                    if (currentChar !== "\n") {
                                         superfluousSpaceCount++;
-                                    }else{
+                                    } else {
                                         superfluousSpaceCount = 0;
                                     }
-                                    currentChar = text.substring( ++pos, pos + 1 );
+                                    currentChar = text.substring(++pos, pos + 1);
                                 }
                                 // split
-                                var parts = text.split( "\n" );
+                                var parts = text.split("\n");
                                 var reformattedText = "";
                                 // reconstruct
                                 var length = parts.length;
-                                for ( var i = 0; i < length; i++ ) {
+                                for (var i = 0; i < length; i++) {
                                     // remove leading whitespace (represented by an empty string)
-                                    if(i === 0 && parts[0]=== ""){
-                                        continue;   
+                                    if (i === 0 && parts[0] === "") {
+                                        continue;
                                     }
                                     // cleanup, and don't append a trailing newline if we are on the last line
-                                    reformattedText += parts[i].substring( superfluousSpaceCount ) + ( i == length - 1 ? "" : "\n" );
+                                    reformattedText += parts[i].substring(superfluousSpaceCount) + (i == length - 1 ? "" : "\n");
                                 }
                                 // modify original
-                                if ( usingInnerText ) {
-                                    $obj.get( 0 ).innerText = reformattedText;
+                                if (usingInnerText) {
+                                    $obj.get(0).innerText = reformattedText;
                                 }
                                 else {
                                     // This does not appear to execute code in any browser but the onus is on the developer to not 
                                     // put raw input from a user anywhere on a page, even if it doesn't execute!
-                                    $obj.html( reformattedText );
+                                    $obj.html(reformattedText);
                                 }
-                            } );
+                            });
                         }
                     }
-                    if ( methods[method] ) {
-                        return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ) );
+                    if (methods[method]) {
+                        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
                     }
-                    else if ( typeof method === "object" || !method ) {
-                        return methods.init.apply( this, arguments );
+                    else if (typeof method === "object" || !method) {
+                        return methods.init.apply(this, arguments);
                     }
                     else {
-                        $.error( "Method " + method + " does not exist on jQuery.prettyPre." );
+                        $.error("Method " + method + " does not exist on jQuery.prettyPre.");
                     }
                 }
-            } )( jQuery );
-            
-            $(document).ready(function() {
+            })(jQuery);
+
+            $(document).ready(function () {
                 $('pre').prettyPre();
             });
-            
+
             /* ----------------------------------------
             Demo-Specific Scripts
             ---------------------------------------- */
-            $(document).ready(function() {
+            $(document).ready(function () {
                 function showKitten() {
                     $('.kitten').slideDown(500);
                     $('pre').slideUp(500);
                 };
-                
+
                 $(document).cheatCode({
                     code: 38383940,
                     time: 500,
@@ -320,4 +360,5 @@
             });
         </script>
     </body>
+
 </html>
