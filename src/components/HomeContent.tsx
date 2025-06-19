@@ -73,14 +73,13 @@ export default function HomeContent({
 							and I create visual experiences.
 						</h1>
 						<p className="text-md leading-relaxed">
-							I&apos;m a full-stack software engineer with a
-							background in graphic design, and my mission is to
-							help others share knowledge and tell stories through
-							visual media. When I&apos;m not in front of a
-							computer, you can find me tinkering on cars or
-							lounging with animals.
+							I&apos;m a full-stack engineer with a background in
+							graphic design, and my mission is to provide
+							innovative software and digital media solutions.
+							When I&apos;m not in front of a computer, you can
+							find me tinkering on cars or lounging with animals.
 						</p>
-						<div className="flex items-center gap-2">
+						<div className="flex items-center gap-2.5">
 							<Button
 								asChild
 								className="cursor-pointer bg-amber-600 text-shadow-black/20 text-shadow-md hover:bg-amber-700"
