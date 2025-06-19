@@ -36,14 +36,22 @@ export default function HomeContent({
 			<main>
 				<section
 					className={cn(
-						'-mt-[45rem] flex h-[45rem] items-center justify-center overflow-hidden transition-all duration-400',
+						'-mt-[50rem] flex h-[50rem] items-center justify-center overflow-hidden transition-all duration-400',
 						'bg-gray-50 bg-gradient-to-br from-indigo-700/10 to-orange-800/20 dark:bg-slate-900 dark:from-stone-900/10',
 						projectGalleryLoaded && 'mt-0'
 					)}
 				>
 					<div className="flex max-w-xl flex-col gap-6 p-8">
 						<h1 className="font-serif text-4xl leading-tight font-normal">
-							👋 My name is{' '}
+							<span
+								className={cn(
+									'inline-block origin-bottom-right cursor-grab',
+									projectGalleryLoaded && 'animate-wave'
+								)}
+							>
+								👋
+							</span>{' '}
+							My name is{' '}
 							<span className="text-primary">
 								Kevin Beronilla
 							</span>{' '}
