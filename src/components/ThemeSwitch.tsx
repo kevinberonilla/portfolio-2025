@@ -30,6 +30,7 @@ export default function ThemeSwitch({ className }: ThemeSwitchProps) {
 			{mounted ? (
 				<Switch
 					checked={resolvedTheme === 'dark'}
+					className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-primary cursor-pointer"
 					id="theme-switch"
 					onCheckedChange={() =>
 						setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
