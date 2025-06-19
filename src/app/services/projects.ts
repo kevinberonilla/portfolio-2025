@@ -43,8 +43,9 @@ function buildProjects(projects: ProjectEntry[], assets: Asset[]): Project[] {
 						const asset = assets.find(
 							(asset) => asset.sys.id === image.sys.id
 						);
+
 						return typeof asset?.fields.file.url === 'string'
-							? asset.fields.file.url
+							? `https:${asset.fields.file.url}`
 							: '';
 					})
 					.filter((url) => url !== '')
@@ -64,8 +65,8 @@ function buildProjects(projects: ProjectEntry[], assets: Asset[]): Project[] {
 				encodeURIComponent(
 					project.fields.name.toLowerCase().replaceAll(' ', '-')
 				),
-			imageUrls: imageUrls,
-			thumbnailUrl: thumbnailUrl,
+			imageUrls,
+			thumbnailUrl: `https:${thumbnailUrl}`,
 			...project.fields,
 		});
 	});

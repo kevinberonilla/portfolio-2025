@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { FiFileText, FiGithub, FiLinkedin } from 'react-icons/fi';
 import { Project } from '@/app/services/projects';
 import Logo from '@/components/Logo';
+import ProjectGallery from '@/components/ProjectGallery';
 import ThemeSwitch from '@/components/ThemeSwitch';
 import { Button } from '@/components/ui/button';
 
@@ -18,14 +19,14 @@ export default function HomeContent({
 }: HomeContentProps) {
 	return (
 		<>
-			<header className="absolute flex w-full items-center justify-between gap-6 p-6">
+			<header className="absolute flex w-full items-center justify-between gap-6 p-8">
 				<Logo className="text-foreground h-6 w-auto" />
 				<ThemeSwitch />
 			</header>
 			<main>
 				<section className="bg-muted h-dvh min-h-[32rem] bg-gradient-to-br from-stone-400/10 to-orange-800/20 dark:from-stone-900/10">
 					<div className="flex h-full items-center justify-center">
-						<div className="flex max-w-xl flex-col gap-6 p-6">
+						<div className="flex max-w-xl flex-col gap-6 p-8">
 							<h1 className="font-serif text-4xl leading-tight font-normal">
 								👋 My name is{' '}
 								<span className="text-primary">
@@ -78,14 +79,10 @@ export default function HomeContent({
 						</div>
 					</div>
 				</section>
+				<ProjectGallery projects={projects} />
 				<div>
 					Categories:
 					{JSON.stringify(categories)}
-				</div>
-				<hr />
-				<div>
-					Projects:
-					{JSON.stringify(projects)}
 				</div>
 			</main>
 		</>
