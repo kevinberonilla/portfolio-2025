@@ -140,7 +140,7 @@
 
 @layer base {
 	.animate-wave {
-		animation: wave 0.5s linear 0.8s;
+		animation: wave 0.5s linear 1s;
 
 		&:hover {
 			animation-iteration-count: infinite;

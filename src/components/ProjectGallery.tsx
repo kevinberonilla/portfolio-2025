@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { SyntheticEvent, useEffect, useMemo, useState } from 'react';
-import { FiArrowRight, FiChevronRight } from 'react-icons/fi';
+import { FiArrowRight } from 'react-icons/fi';
 import { Project } from '@/app/services/projects';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -69,10 +69,7 @@ export default function ProjectGallery({
 
 				return (
 					<li
-						className={cn(
-							'group/tile pointer-events-none relative block aspect-3/2 overflow-hidden',
-							loaded && 'pointer-events-auto'
-						)}
+						className="group/tile relative block aspect-3/2 overflow-hidden"
 						key={project.name}
 					>
 						<Link

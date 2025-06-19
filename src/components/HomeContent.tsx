@@ -20,10 +20,15 @@ export default function HomeContent({
 	projects,
 }: HomeContentProps) {
 	const [projectGalleryLoaded, setProjectGalleryLoaded] = useState(false);
+	const [projectGalleryEnabled, setProjectGalleryEnabled] = useState(false);
 
 	const handleAllThumbnailsLoaded = useCallback(() => {
 		window.setTimeout(() => {
 			setProjectGalleryLoaded(true);
+
+			window.setTimeout(() => {
+				setProjectGalleryEnabled(true);
+			}, 800);
 		}, 400);
 	}, []);
 
@@ -48,7 +53,7 @@ export default function HomeContent({
 				>
 					<div
 						className={cn(
-							'flex max-w-xl scale-110 flex-col gap-6 p-8 transition-transform duration-800',
+							'flex max-w-xl scale-110 flex-col gap-6 p-8 transition-transform duration-1000',
 							projectGalleryLoaded && 'scale-100'
 						)}
 					>
@@ -109,8 +114,9 @@ export default function HomeContent({
 				<section>
 					<ProjectGallery
 						className={cn(
-							'relative z-10 -mt-[45rem] transition-all duration-800',
-							projectGalleryLoaded && 'mt-0'
+							'pointer-events-none relative z-10 -mt-[45rem] transition-all duration-800',
+							projectGalleryLoaded && 'mt-0',
+							projectGalleryEnabled && 'pointer-events-auto'
 						)}
 						loaded={projectGalleryLoaded}
 						onAllThumbnailsLoaded={handleAllThumbnailsLoaded}
