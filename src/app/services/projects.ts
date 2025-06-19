@@ -19,8 +19,8 @@ export type ProjectEntry = EntryProps<{
 }>;
 
 export type Project = ProjectEntry['fields'] & {
-	hash: string;
 	imageUrls: string[];
+	slug: string;
 	thumbnailUrl: string;
 };
 
@@ -60,12 +60,10 @@ function buildProjects(projects: ProjectEntry[], assets: Asset[]): Project[] {
 				: '';
 
 		formattedProjects.push({
-			hash:
-				'#' +
-				encodeURIComponent(
-					project.fields.name.toLowerCase().replaceAll(' ', '-')
-				),
 			imageUrls,
+			slug: encodeURIComponent(
+				project.fields.name.toLowerCase().replaceAll(' ', '-')
+			),
 			thumbnailUrl: `https:${thumbnailUrl}`,
 			...project.fields,
 		});

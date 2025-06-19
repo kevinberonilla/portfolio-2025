@@ -1,92 +1,118 @@
 import Image from 'next/image';
-import { MouseEvent, SyntheticEvent, useState } from 'react';
+import Link from 'next/link';
+import { SyntheticEvent, useEffect, useMemo, useState } from 'react';
 import { Project } from '@/app/services/projects';
+import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 interface ProjectGalleryProps {
-	isMediumScreen?: boolean;
-	loaded?: boolean;
+	className?: string;
+	loaded: boolean;
+	onAllThumbnailsLoaded?: () => void;
 	projects: Project[];
 }
 
 export default function ProjectGallery({
+	className,
 	loaded = false,
-	projects = [],
+	onAllThumbnailsLoaded,
+	projects,
 }: ProjectGalleryProps) {
-	const [_totalThumbnailsLoaded, setTotalThumbnailsLoaded] = useState(0);
+	const [thumbnailsLoaded, setThumbnailsLoaded] = useState(
+		projects.reduce(
+			(acc, project) => {
+				acc[project.slug] = false;
+
+				return acc;
+			},
+			{} as Record<string, boolean>
+		)
+	);
+
+	const totalThumbnailsLoaded = useMemo(
+		() => Object.values(thumbnailsLoaded).filter((loaded) => loaded).length,
+		[thumbnailsLoaded]
+	);
+
+	useEffect(() => {
+		if (!loaded && totalThumbnailsLoaded === projects.length) {
+			onAllThumbnailsLoaded?.();
+		}
+	}, [loaded, onAllThumbnailsLoaded, projects.length, totalThumbnailsLoaded]);
 
 	function handleThumbnailLoad(event: SyntheticEvent<HTMLImageElement>) {
 		const loadedImage = event.currentTarget;
 
 		if (!loaded) {
 			window.setTimeout(() => {
-				loadedImage
-					.closest('.kb-project-gallery__project')
-					?.classList.add('kb-project-gallery__project--loaded');
+				setThumbnailsLoaded((prevState) => {
+					const newState = { ...prevState };
 
-				setTotalThumbnailsLoaded((prevState) => prevState + 1);
+					newState[loadedImage.dataset.slug as string] = true;
+
+					return newState;
+				});
 			}, Math.random() * 500);
 		}
 	}
 
-	function handleProjectClick(event: MouseEvent<HTMLAnchorElement>) {
-		event.preventDefault();
-
-		const projectIndex = parseInt(
-			event.currentTarget?.dataset.index ?? '0',
-			10
-		);
-		const targetProject = projects[projectIndex];
-		const newDocumentTitle = `${targetProject.name} | Kevin Beronilla`;
-
-		window.document.title = newDocumentTitle;
-		window.history.replaceState(
-			null,
-			newDocumentTitle,
-			window.location.pathname + targetProject.hash
-		);
-	}
-
 	return (
-		<>
-			<div>
-				<ul className="grid grid-cols-4">
-					{projects.map((project, projectIndex) => {
-						return (
-							<li key={project.name}>
-								<a
-									data-index={projectIndex}
-									href={project.hash}
-									onClick={handleProjectClick}
-								>
-									<Image
-										alt={project.name}
-										height={400}
-										onLoad={handleThumbnailLoad}
-										src={project.thumbnailUrl}
-										width={600}
-									/>
-									<span className="kb-project-gallery__hover-tile">
-										<span className="kb-project-gallery__name kb-m-around--none">
-											{project.name}
-										</span>
-										<ul className="kb-project-gallery__tags kb-text-transform--capitalize">
-											{project.categories.map(
-												(category) => {
-													return (
-														<li key={category}>
-															{category}
-														</li>
-													);
-												}
-											)}
-										</ul>
-									</span>
-								</a>
-							</li>
-						);
-					})}
-				</ul>
-			</div>
-		</>
+		<ul
+			className={cn(
+				'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5',
+				className
+			)}
+		>
+			{projects.map((project) => {
+				const thumbnailLoaded = thumbnailsLoaded[project.slug];
+
+				return (
+					<li
+						className={cn(
+							'group/tile pointer-events-none relative block aspect-3/2 overflow-hidden',
+							loaded && 'pointer-events-auto'
+						)}
+						key={project.name}
+					>
+						<Link
+							className={cn(
+								'block translate-y-[calc(100%_+_1rem)] transition-all duration-200',
+								thumbnailLoaded && 'translate-y-0'
+							)}
+							href={`/projects/${project.slug}`}
+						>
+							<Image
+								alt={project.name}
+								className="size-full origin-center transition-all duration-200 group-hover/tile:scale-110 group-hover/tile:blur-xs"
+								data-slug={project.slug}
+								height={400}
+								onLoad={handleThumbnailLoad}
+								src={project.thumbnailUrl}
+								width={600}
+							/>
+							<span className="absolute inset-0 z-10 flex w-full flex-col gap-3 bg-rose-50/90 p-8 opacity-0 transition-all duration-200 group-hover/tile:opacity-100 dark:bg-gray-950/80">
+								<h3 className="text-primary -translate-x-2 text-lg leading-tight font-bold opacity-0 transition-all delay-100 duration-200 group-hover/tile:translate-x-0 group-hover/tile:opacity-100">
+									{project.name}
+								</h3>
+								<ul className="flex -translate-x-2 flex-wrap gap-1 opacity-0 transition-all delay-150 duration-200 group-hover/tile:translate-x-0 group-hover/tile:opacity-100">
+									{project.categories.map((category) => {
+										return (
+											<li key={category}>
+												<Badge
+													className="bg-muted-foreground/10 rounded-xs capitalize"
+													variant="outline"
+												>
+													{category}
+												</Badge>
+											</li>
+										);
+									})}
+								</ul>
+							</span>
+						</Link>
+					</li>
+				);
+			})}
+		</ul>
 	);
 }
