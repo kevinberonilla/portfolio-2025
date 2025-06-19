@@ -90,7 +90,7 @@ export default function ProjectGallery({
 								src={project.thumbnailUrl}
 								width={600}
 							/>
-							<span className="absolute inset-0 z-10 flex w-full flex-col gap-3 bg-rose-50/90 p-8 opacity-0 transition-all duration-200 group-hover/tile:opacity-100 dark:bg-gray-950/80">
+							<span className="absolute inset-0 z-10 flex w-full flex-col gap-2 bg-rose-50/90 p-8 opacity-0 transition-all duration-200 group-hover/tile:opacity-100 dark:bg-gray-950/80">
 								<h3 className="text-primary -translate-x-2 text-lg leading-tight font-bold opacity-0 transition-all delay-100 duration-200 group-hover/tile:translate-x-0 group-hover/tile:opacity-100">
 									{project.name}
 								</h3>
