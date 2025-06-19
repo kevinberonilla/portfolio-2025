@@ -29,19 +29,29 @@ export default function HomeContent({
 
 	return (
 		<>
-			<header className="absolute z-10 flex w-full items-center justify-between gap-6 p-8">
+			<header
+				className={cn(
+					'invisible absolute z-10 flex w-full items-center justify-between gap-6 p-8',
+					projectGalleryLoaded && 'visible'
+				)}
+			>
 				<Logo className="text-foreground h-7 w-auto" />
 				<ThemeSwitch />
 			</header>
 			<main>
 				<section
 					className={cn(
-						'-mt-[50rem] flex h-[50rem] items-center justify-center overflow-hidden transition-all duration-400',
-						'bg-gray-50 bg-gradient-to-br from-indigo-700/10 to-orange-800/20 dark:bg-slate-900 dark:from-stone-900/10',
-						projectGalleryLoaded && 'mt-0'
+						'invisible flex h-[45rem] items-center justify-center overflow-hidden blur-md transition-[filter] duration-800',
+						'bg-gray-50 bg-gradient-to-br from-sky-100/20 to-orange-600/10 dark:bg-slate-900/60 dark:from-stone-900/10 dark:to-orange-800/20',
+						projectGalleryLoaded && 'visible blur-none'
 					)}
 				>
-					<div className="flex max-w-xl flex-col gap-6 p-8">
+					<div
+						className={cn(
+							'flex max-w-xl scale-110 flex-col gap-6 p-8 transition-transform duration-800',
+							projectGalleryLoaded && 'scale-100'
+						)}
+					>
 						<h1 className="font-serif text-4xl leading-tight font-normal">
 							<span
 								className={cn(
@@ -98,6 +108,10 @@ export default function HomeContent({
 				</section>
 				<section>
 					<ProjectGallery
+						className={cn(
+							'relative z-10 -mt-[45rem] transition-all duration-800',
+							projectGalleryLoaded && 'mt-0'
+						)}
 						loaded={projectGalleryLoaded}
 						onAllThumbnailsLoaded={handleAllThumbnailsLoaded}
 						projects={projects}

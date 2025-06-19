@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { SyntheticEvent, useEffect, useMemo, useState } from 'react';
+import { FiArrowRight, FiChevronRight } from 'react-icons/fi';
 import { Project } from '@/app/services/projects';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -76,38 +77,45 @@ export default function ProjectGallery({
 					>
 						<Link
 							className={cn(
-								'block translate-y-[calc(100%_+_1rem)] transition-all duration-200',
+								'block translate-y-[calc(100%_+_1rem)] transition-transform duration-200',
 								thumbnailLoaded && 'translate-y-0'
 							)}
 							href={`/projects/${project.slug}`}
 						>
 							<Image
 								alt={project.name}
-								className="size-full origin-center transition-all duration-200 group-hover/tile:scale-110 group-hover/tile:blur-xs"
+								className="size-full origin-center scale-101 object-cover transition-transform duration-200 group-hover/tile:scale-110 group-hover/tile:blur-xs"
 								data-slug={project.slug}
 								height={400}
 								onLoad={handleThumbnailLoad}
 								src={project.thumbnailUrl}
 								width={600}
 							/>
-							<span className="absolute -inset-1 z-10 flex flex-col gap-2 bg-rose-50/90 p-8 opacity-0 transition-all duration-200 group-hover/tile:opacity-100 dark:bg-gray-950/80">
-								<h3 className="text-primary -translate-x-2 text-lg leading-tight font-bold opacity-0 transition-all delay-100 duration-200 group-hover/tile:translate-x-0 group-hover/tile:opacity-100">
+							<span
+								className={cn(
+									'absolute -inset-1 z-10 flex flex-col gap-1 bg-gray-50/85 p-8 group-hover/tile:opacity-100 dark:bg-gray-950/80',
+									'opacity-0 transition-opacity duration-200',
+									'*:-translate-x-2 *:opacity-0 *:transition-[opacity,translate] group-hover/tile:*:translate-x-0 group-hover/tile:*:opacity-100'
+								)}
+							>
+								<h3 className="text-lg leading-tight font-bold delay-100">
 									{project.name}
 								</h3>
-								<ul className="flex -translate-x-2 flex-wrap gap-1 opacity-0 transition-all delay-150 duration-200 group-hover/tile:translate-x-0 group-hover/tile:opacity-100">
+								<ul className="flex flex-wrap gap-1 delay-150">
 									{project.categories.map((category) => {
 										return (
 											<li key={category}>
-												<Badge
-													className="bg-muted-foreground/10 rounded-xs capitalize"
-													variant="outline"
-												>
+												<Badge className="bg-muted-foreground/20 text-foreground rounded-xs capitalize">
 													{category}
 												</Badge>
 											</li>
 										);
 									})}
 								</ul>
+								<div className="text-primary mt-auto flex items-center gap-1 text-xs font-bold delay-200">
+									View Project
+									<FiArrowRight className="size-3" />
+								</div>
 							</span>
 						</Link>
 					</li>
