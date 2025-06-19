@@ -23,6 +23,16 @@ const eslintConfig = [
 					varsIgnorePattern: '^_',
 				},
 			],
+			'no-restricted-imports': [
+				'warn',
+				{
+					patterns: [
+						{
+							group: ['./', '../'],
+						},
+					],
+				},
+			],
 			'perfectionist/sort-enums': ['warn', { type: 'alphabetical' }],
 			'perfectionist/sort-imports': [
 				'warn',

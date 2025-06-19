@@ -1,5 +1,5 @@
 import { Asset, EntryProps } from 'contentful-management';
-import { buildCategories } from './categories';
+import { buildCategories } from '@/app/services/categories';
 
 export type ProjectEntry = EntryProps<{
 	appExchangeListing?: string;

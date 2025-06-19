@@ -1,4 +1,4 @@
-import { ProjectEntry } from './projects';
+import { ProjectEntry } from '@/app/services/projects';
 
 export function buildCategories(projects: ProjectEntry[]): string[] {
 	const categorySet = new Set<string>();
