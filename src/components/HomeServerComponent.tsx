@@ -1,7 +1,7 @@
 'use server';
 
 import { getProjects } from '@/app/services/projects';
-import HomeContent from './HomeContent';
+import HomeContent from '@/components/HomeContent';
 
 export default async function HomeServerComponent() {
 	const { data, error } = await getProjects();
@@ -17,10 +17,7 @@ export default async function HomeServerComponent() {
 		return <div>No data available</div>;
 	}
 
-	const {
-		includes: { Asset: assets },
-		items: projects,
-	} = data;
+	const { categories, projects } = data;
 
-	return <HomeContent assets={assets} projects={projects} />;
+	return <HomeContent categories={categories} projects={projects} />;
 }
