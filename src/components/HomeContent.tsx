@@ -12,7 +12,6 @@ import ThemeSwitch from '@/components/ThemeSwitch';
 import { cn } from '@/lib/utils';
 
 interface HomeContentProps {
-	categories: string[];
 	projects: Project[];
 }
 
@@ -70,10 +69,7 @@ const getCtaButtons = (header = false): CallToAction[] => [
 	},
 ];
 
-export default function HomeContent({
-	categories,
-	projects,
-}: HomeContentProps) {
+export default function HomeContent({ projects }: HomeContentProps) {
 	const { inView: ctaInView, ref: ctaRef } = useInView({
 		initialInView: false,
 		threshold: 1,
@@ -201,10 +197,6 @@ export default function HomeContent({
 						tileElementRef={selectedProjectTileRef}
 					/>
 				)}
-				<div>
-					Categories:
-					{JSON.stringify(categories)}
-				</div>
 			</main>
 		</>
 	);

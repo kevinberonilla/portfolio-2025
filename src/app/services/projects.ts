@@ -1,5 +1,4 @@
 import { Asset, EntryProps } from 'contentful-management';
-import { buildCategories } from '@/app/services/categories';
 
 export type ProjectEntry = EntryProps<{
 	appExchangeListing?: string;
@@ -26,7 +25,6 @@ export type Project = ProjectEntry['fields'] & {
 
 interface GetProjectsResult {
 	data: {
-		categories: string[];
 		projects: Project[];
 	} | null;
 	error: unknown;
@@ -91,13 +89,9 @@ export async function getProjects(): Promise<GetProjectsResult> {
 			responseJson.items,
 			responseJson.includes.Asset
 		);
-		const categories = buildCategories(responseJson.items);
 
 		return {
-			data: {
-				categories,
-				projects,
-			},
+			data: { projects },
 			error: null,
 			success: true,
 		};

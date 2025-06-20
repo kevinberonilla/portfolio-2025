@@ -8,16 +8,15 @@ export default async function HomeServerComponent() {
 
 	if (error) {
 		console.error(error);
-		// TODO: Add error component
-		return <div>Error: {JSON.stringify(error)}</div>;
+
+		return null;
 	}
 
 	if (!data) {
-		// TODO: Add error component
-		return <div>No data available</div>;
+		return null;
 	}
 
-	const { categories, projects } = data;
+	const { projects } = data;
 
-	return <HomeContent categories={categories} projects={projects} />;
+	return <HomeContent projects={projects} />;
 }
