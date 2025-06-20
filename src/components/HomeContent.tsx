@@ -114,11 +114,11 @@ export default function HomeContent({
 					className="text-foreground h-6 w-auto cursor-pointer"
 					onClick={handleLogoClick}
 				/>
-				<div className="flex items-center gap-6">
+				<div className="flex items-center gap-2 sm:gap-6">
 					<CallsToAction
 						buttons={getCtaButtons(true)}
 						className={cn(
-							'pointer-events-none gap-1 overflow-hidden p-1 *:translate-y-full *:opacity-0 *:transition-all *:duration-200 sm:gap-2',
+							'pointer-events-none gap-0.5 overflow-hidden p-1 *:translate-y-full *:opacity-0 *:transition-all *:duration-200 sm:gap-2',
 							((!ctaInView && projectGalleryEnabled) ||
 								selectedProject) &&
 								'pointer-events-auto *:translate-y-0 *:opacity-100'
