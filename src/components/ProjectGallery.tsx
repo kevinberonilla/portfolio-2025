@@ -11,7 +11,7 @@ interface ProjectGalleryProps {
 	className?: string;
 	loaded: boolean;
 	onAllThumbnailsLoaded: () => void;
-	onProjectClick: (project: Project, ref: HTMLLIElement) => void;
+	onProjectClick: (project: Project, tileElement: HTMLLIElement) => void;
 	projects: Project[];
 }
 
@@ -86,7 +86,8 @@ export default function ProjectGallery({
 								'block size-full translate-y-[calc(100%_+_1rem)] cursor-pointer text-left transition-transform duration-200',
 								thumbnailLoaded && 'translate-y-0'
 							)}
-							onClick={() => {
+							onClick={(event) => {
+								event.currentTarget.blur();
 								onProjectClick?.(
 									project,
 									tileRefs.current[projectIndex]

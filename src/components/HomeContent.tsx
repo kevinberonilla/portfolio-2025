@@ -1,11 +1,13 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useRef, useState } from 'react';
+import { FiFileText, FiGithub, FiLinkedin } from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
 import { Project } from '@/app/services/projects';
-import CallsToAction from '@/components/CallsToAction';
+import CallsToAction, { CallToAction } from '@/components/CallsToAction';
 import Logo from '@/components/Logo';
 import ProjectGallery from '@/components/ProjectGallery';
+import ProjectModal from '@/components/ProjectModal';
 import ThemeSwitch from '@/components/ThemeSwitch';
 import { cn } from '@/lib/utils';
 
@@ -13,6 +15,30 @@ interface HomeContentProps {
 	categories: string[];
 	projects: Project[];
 }
+
+const ctaButtons: CallToAction[] = [
+	{
+		ariaLabel: 'View my resume',
+		className: 'bg-amber-600 hover:bg-amber-700',
+		href: '/downloads/kevin-beronilla-resume.pdf',
+		icon: <FiFileText />,
+		label: 'Resume',
+	},
+	{
+		ariaLabel: 'View my LinkedIn profile',
+		className: 'bg-sky-700 hover:bg-sky-800',
+		href: 'https://www.linkedin.com/in/kevinberonilla/',
+		icon: <FiLinkedin />,
+		label: 'LinkedIn',
+	},
+	{
+		ariaLabel: 'View my GitHub profile',
+		className: 'bg-zinc-700 hover:bg-zinc-800',
+		href: 'https://github.com/kevinberonilla',
+		icon: <FiGithub />,
+		label: 'GitHub',
+	},
+];
 
 export default function HomeContent({
 	categories,
@@ -24,10 +50,9 @@ export default function HomeContent({
 	const [selectedProject, setSelectedProject] = useState<Project | null>(
 		null
 	);
-	const [selectedProjectRef, setSelectedProjectRef] =
-		useState<HTMLLIElement | null>(null);
+	const selectedProjectTileRef = useRef<HTMLLIElement | null>(null);
 
-	const handleAllThumbnailsLoaded = useCallback(() => {
+	const handleAllThumbnailsLoaded = () => {
 		window.setTimeout(() => {
 			setProjectGalleryLoaded(true);
 
@@ -35,15 +60,22 @@ export default function HomeContent({
 				setProjectGalleryEnabled(true);
 			}, 800);
 		}, 400);
-	}, []);
+	};
 
-	const handleProjectClick = useCallback(
-		(project: Project, ref: HTMLLIElement) => {
-			setSelectedProject(project);
-			setSelectedProjectRef(ref);
-		},
-		[]
-	);
+	const handleProjectClick = (
+		project: Project,
+		tileElement: HTMLLIElement
+	) => {
+		setSelectedProject(project);
+		selectedProjectTileRef.current = tileElement;
+		document.body.style.overflow = 'hidden';
+	};
+
+	const handleProjectModalClose = () => {
+		setSelectedProject(null);
+		selectedProjectTileRef.current = null;
+		document.body.style.overflow = '';
+	};
 
 	return (
 		<>
@@ -51,6 +83,7 @@ export default function HomeContent({
 				<Logo className="text-foreground h-6 w-auto" />
 				<div className="flex items-center gap-6">
 					<CallsToAction
+						buttons={ctaButtons}
 						className={cn(
 							'pointer-events-none opacity-0 transition-opacity duration-400',
 							((!ctaInView && projectGalleryEnabled) ||
@@ -98,7 +131,7 @@ export default function HomeContent({
 							When I&apos;m not in front of a computer, you can
 							find me tinkering on cars or lounging with animals.
 						</p>
-						<CallsToAction ref={ctaRef} />
+						<CallsToAction buttons={ctaButtons} ref={ctaRef} />
 					</div>
 				</section>
 				<section>
@@ -114,7 +147,13 @@ export default function HomeContent({
 						projects={projects}
 					/>
 				</section>
-				{selectedProject && selectedProjectRef && <div>test</div>}
+				{selectedProject && selectedProjectTileRef.current && (
+					<ProjectModal
+						onClose={handleProjectModalClose}
+						project={selectedProject}
+						tileElementRef={selectedProjectTileRef}
+					/>
+				)}
 				<div>
 					Categories:
 					{JSON.stringify(categories)}
