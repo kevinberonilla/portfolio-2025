@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 
 interface ProjectGalleryProps {
 	className?: string;
+	disabled?: boolean;
 	loaded: boolean;
 	onAllThumbnailsLoaded: () => void;
 	onProjectClick: (project: Project, tileElement: HTMLLIElement) => void;
@@ -17,6 +18,7 @@ interface ProjectGalleryProps {
 
 export default function ProjectGallery({
 	className,
+	disabled = false,
 	loaded = false,
 	onAllThumbnailsLoaded,
 	onProjectClick,
@@ -86,6 +88,7 @@ export default function ProjectGallery({
 								'block size-full translate-y-[calc(100%_+_1rem)] cursor-pointer text-left transition-transform duration-200',
 								thumbnailLoaded && 'translate-y-0'
 							)}
+							disabled={disabled}
 							onClick={(event) => {
 								event.currentTarget.blur();
 								onProjectClick?.(
@@ -110,7 +113,7 @@ export default function ProjectGallery({
 							/>
 							<span
 								className={cn(
-									'absolute -inset-1 z-10 flex flex-col gap-1 bg-white/85 p-8 dark:bg-black/80',
+									'bg-background/80 absolute -inset-1 z-10 flex flex-col gap-1 p-8',
 									'opacity-0 transition-opacity duration-200',
 									'*:-translate-x-2 *:opacity-0 *:transition-[opacity,translate]',
 									'group-focus-within/tile:opacity-100 group-focus-within/tile:*:translate-x-0 group-focus-within/tile:*:opacity-100 group-hover/tile:opacity-100 group-hover/tile:*:translate-x-0 group-hover/tile:*:opacity-100'

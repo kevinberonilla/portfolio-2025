@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 export interface CallToAction {
 	ariaLabel: string;
 	className?: string;
+	disabled?: boolean;
 	href: string;
 	icon: React.ReactNode;
 	label: string;
@@ -15,11 +16,12 @@ export interface CallToAction {
 interface CallsToActionProps {
 	buttons: CallToAction[];
 	className?: string;
+	disabled?: boolean;
 	header?: boolean;
 }
 
 const CallsToAction = forwardRef<HTMLDivElement, CallsToActionProps>(
-	({ buttons, className, header = false }, ref) => {
+	({ buttons, className, disabled = false, header = false }, ref) => {
 		return (
 			<div
 				className={cn('flex items-center gap-2.5', className)}
@@ -33,10 +35,20 @@ const CallsToAction = forwardRef<HTMLDivElement, CallsToActionProps>(
 							'cursor-pointer text-shadow-black/20 text-shadow-md',
 							button.className
 						)}
+						disabled={disabled}
 						key={button.label}
 						size={header ? 'sm' : 'default'}
+						tabIndex={disabled ? -1 : 0}
 					>
-						<Link href={button.href}>
+						<Link
+							href={button.href}
+							onClick={(event) => {
+								if (disabled) {
+									event.preventDefault();
+								}
+							}}
+							tabIndex={disabled ? -1 : 0}
+						>
 							{button.icon}
 							<span className={cn(header && 'hidden sm:inline')}>
 								{button.label}

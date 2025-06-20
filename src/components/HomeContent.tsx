@@ -51,6 +51,7 @@ export default function HomeContent({
 		null
 	);
 	const selectedProjectTileRef = useRef<HTMLLIElement | null>(null);
+	const projectShown = !!(selectedProject && selectedProjectTileRef.current);
 
 	const handleAllThumbnailsLoaded = () => {
 		window.setTimeout(() => {
@@ -131,7 +132,11 @@ export default function HomeContent({
 							When I&apos;m not in front of a computer, you can
 							find me tinkering on cars or lounging with animals.
 						</p>
-						<CallsToAction buttons={ctaButtons} ref={ctaRef} />
+						<CallsToAction
+							buttons={ctaButtons}
+							disabled={projectShown}
+							ref={ctaRef}
+						/>
 					</div>
 				</section>
 				<section>
@@ -141,13 +146,14 @@ export default function HomeContent({
 							projectGalleryLoaded && 'mt-0 md:mt-0',
 							projectGalleryEnabled && 'pointer-events-auto'
 						)}
+						disabled={projectShown}
 						loaded={projectGalleryLoaded}
 						onAllThumbnailsLoaded={handleAllThumbnailsLoaded}
 						onProjectClick={handleProjectClick}
 						projects={projects}
 					/>
 				</section>
-				{selectedProject && selectedProjectTileRef.current && (
+				{projectShown && (
 					<ProjectModal
 						onClose={handleProjectModalClose}
 						project={selectedProject}
