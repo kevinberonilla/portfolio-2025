@@ -19,7 +19,10 @@ interface HomeContentProps {
 const getCtaButtons = (header = false): CallToAction[] => [
 	{
 		ariaLabel: 'View my resume',
-		className: 'bg-amber-600 hover:bg-amber-700',
+		className: cn(
+			'bg-amber-600 hover:bg-amber-700',
+			header && 'max-sm:size-6.5'
+		),
 		href: '/downloads/kevin-beronilla-resume.pdf',
 		icon: (
 			<FiFileText
@@ -33,7 +36,10 @@ const getCtaButtons = (header = false): CallToAction[] => [
 	},
 	{
 		ariaLabel: 'View my LinkedIn profile',
-		className: 'bg-sky-700 hover:bg-sky-800',
+		className: cn(
+			'bg-sky-700 hover:bg-sky-800',
+			header && 'max-sm:size-6.5'
+		),
 		href: 'https://www.linkedin.com/in/kevinberonilla/',
 		icon: (
 			<FiLinkedin
@@ -47,7 +53,10 @@ const getCtaButtons = (header = false): CallToAction[] => [
 	},
 	{
 		ariaLabel: 'View my GitHub profile',
-		className: 'bg-zinc-700 hover:bg-zinc-800',
+		className: cn(
+			'bg-zinc-700 hover:bg-zinc-800',
+			header && 'max-sm:size-6.5'
+		),
 		href: 'https://github.com/kevinberonilla',
 		icon: (
 			<FiGithub
@@ -111,14 +120,14 @@ export default function HomeContent({
 		<>
 			<header className="bg-background sticky top-0 z-20 flex w-full items-center justify-between gap-6 p-8">
 				<Logo
-					className="text-foreground h-6 w-auto cursor-pointer"
+					className="text-foreground h-6 w-auto cursor-pointer sm:h-7"
 					onClick={handleLogoClick}
 				/>
 				<div className="flex items-center gap-2 sm:gap-6">
 					<CallsToAction
 						buttons={getCtaButtons(true)}
 						className={cn(
-							'pointer-events-none gap-0.5 overflow-hidden p-1 *:translate-y-full *:opacity-0 *:transition-all *:duration-200 sm:gap-2',
+							'pointer-events-none gap-1 overflow-hidden p-1 *:translate-y-full *:opacity-0 *:transition-all *:duration-200 sm:gap-2',
 							((!ctaInView && projectGalleryEnabled) ||
 								selectedProject) &&
 								'pointer-events-auto *:translate-y-0 *:opacity-100'
