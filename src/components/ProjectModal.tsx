@@ -75,7 +75,8 @@ export default function ProjectModal({
 				src={project.thumbnailUrl}
 				width={600}
 			/>
-			<div className="bg-background/80 absolute inset-0 z-10 overflow-y-auto p-8">
+			<div className="bg-background/80 absolute inset-0 z-10 overflow-y-auto p-8" />
+			<div className="absolute inset-0 z-10 overflow-y-auto p-8">
 				<div
 					className={cn(
 						'mx-auto flex w-full max-w-screen-lg flex-col gap-8 opacity-0 transition-opacity duration-300',

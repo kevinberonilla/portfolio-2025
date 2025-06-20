@@ -118,7 +118,7 @@ export default function HomeContent({
 					<CallsToAction
 						buttons={getCtaButtons(true)}
 						className={cn(
-							'pointer-events-none gap-1 overflow-hidden *:translate-y-full *:opacity-0 *:transition-all *:duration-200 sm:gap-2',
+							'pointer-events-none gap-1 overflow-hidden p-1 *:translate-y-full *:opacity-0 *:transition-all *:duration-200 sm:gap-2',
 							((!ctaInView && projectGalleryEnabled) ||
 								selectedProject) &&
 								'pointer-events-auto *:translate-y-0 *:opacity-100'
