@@ -1,6 +1,7 @@
+'use client';
+
 import Image from 'next/image';
-import Link from 'next/link';
-import { SyntheticEvent, useEffect, useMemo, useState } from 'react';
+import { SyntheticEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 import { Project } from '@/app/services/projects';
 import { Badge } from '@/components/ui/badge';
@@ -9,7 +10,8 @@ import { cn } from '@/lib/utils';
 interface ProjectGalleryProps {
 	className?: string;
 	loaded: boolean;
-	onAllThumbnailsLoaded?: () => void;
+	onAllThumbnailsLoaded: () => void;
+	onProjectClick: (project: Project, ref: HTMLLIElement) => void;
 	projects: Project[];
 }
 
@@ -17,8 +19,10 @@ export default function ProjectGallery({
 	className,
 	loaded = false,
 	onAllThumbnailsLoaded,
+	onProjectClick,
 	projects,
 }: ProjectGalleryProps) {
+	const tileRefs = useRef<HTMLLIElement[]>([]);
 	const [thumbnailsLoaded, setThumbnailsLoaded] = useState(
 		projects.reduce(
 			(acc, project) => {
@@ -64,35 +68,51 @@ export default function ProjectGallery({
 				className
 			)}
 		>
-			{projects.map((project) => {
+			{projects.map((project, projectIndex) => {
 				const thumbnailLoaded = thumbnailsLoaded[project.slug];
 
 				return (
 					<li
 						className="group/tile relative block aspect-3/2 overflow-hidden"
 						key={project.name}
+						ref={(el) => {
+							if (el) {
+								tileRefs.current[projectIndex] = el;
+							}
+						}}
 					>
-						<Link
+						<button
 							className={cn(
-								'block translate-y-[calc(100%_+_1rem)] transition-transform duration-200',
+								'block size-full translate-y-[calc(100%_+_1rem)] cursor-pointer text-left transition-transform duration-200',
 								thumbnailLoaded && 'translate-y-0'
 							)}
-							href={`/projects/${project.slug}`}
+							onClick={() => {
+								onProjectClick?.(
+									project,
+									tileRefs.current[projectIndex]
+								);
+							}}
+							type="button"
 						>
 							<Image
 								alt={project.name}
-								className="size-full origin-center scale-101 object-cover transition-transform duration-200 group-hover/tile:scale-110 group-hover/tile:blur-xs"
+								className={cn(
+									'size-full origin-center scale-101 object-cover transition-transform duration-200',
+									'group-focus-within/tile:scale-110 group-focus-within/tile:blur-xs group-hover/tile:scale-110 group-hover/tile:blur-xs'
+								)}
 								data-slug={project.slug}
 								height={400}
+								loading="eager"
 								onLoad={handleThumbnailLoad}
 								src={project.thumbnailUrl}
 								width={600}
 							/>
 							<span
 								className={cn(
-									'absolute -inset-1 z-10 flex flex-col gap-1 bg-gray-50/85 p-8 group-hover/tile:opacity-100 dark:bg-gray-950/80',
+									'absolute -inset-1 z-10 flex flex-col gap-1 bg-white/85 p-8 dark:bg-black/80',
 									'opacity-0 transition-opacity duration-200',
-									'*:-translate-x-2 *:opacity-0 *:transition-[opacity,translate] group-hover/tile:*:translate-x-0 group-hover/tile:*:opacity-100'
+									'*:-translate-x-2 *:opacity-0 *:transition-[opacity,translate]',
+									'group-focus-within/tile:opacity-100 group-focus-within/tile:*:translate-x-0 group-focus-within/tile:*:opacity-100 group-hover/tile:opacity-100 group-hover/tile:*:translate-x-0 group-hover/tile:*:opacity-100'
 								)}
 							>
 								<h3 className="text-lg leading-tight font-bold delay-100">
@@ -114,7 +134,7 @@ export default function ProjectGallery({
 									<FiArrowRight className="size-3" />
 								</div>
 							</span>
-						</Link>
+						</button>
 					</li>
 				);
 			})}

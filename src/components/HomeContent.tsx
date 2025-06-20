@@ -1,13 +1,12 @@
 'use client';
 
-import Link from 'next/link';
 import { useCallback, useState } from 'react';
-import { FiFileText, FiGithub, FiLinkedin } from 'react-icons/fi';
+import { useInView } from 'react-intersection-observer';
 import { Project } from '@/app/services/projects';
+import CallsToAction from '@/components/CallsToAction';
 import Logo from '@/components/Logo';
 import ProjectGallery from '@/components/ProjectGallery';
 import ThemeSwitch from '@/components/ThemeSwitch';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 interface HomeContentProps {
@@ -19,8 +18,14 @@ export default function HomeContent({
 	categories,
 	projects,
 }: HomeContentProps) {
+	const { inView: ctaInView, ref: ctaRef } = useInView({ threshold: 1 });
 	const [projectGalleryLoaded, setProjectGalleryLoaded] = useState(false);
 	const [projectGalleryEnabled, setProjectGalleryEnabled] = useState(false);
+	const [selectedProject, setSelectedProject] = useState<Project | null>(
+		null
+	);
+	const [selectedProjectRef, setSelectedProjectRef] =
+		useState<HTMLLIElement | null>(null);
 
 	const handleAllThumbnailsLoaded = useCallback(() => {
 		window.setTimeout(() => {
@@ -32,22 +37,35 @@ export default function HomeContent({
 		}, 400);
 	}, []);
 
+	const handleProjectClick = useCallback(
+		(project: Project, ref: HTMLLIElement) => {
+			setSelectedProject(project);
+			setSelectedProjectRef(ref);
+		}
+	);
+
 	return (
 		<>
-			<header
-				className={cn(
-					'invisible absolute z-10 flex w-full items-center justify-between gap-6 p-8',
-					projectGalleryLoaded && 'visible'
-				)}
-			>
-				<Logo className="text-foreground h-7 w-auto" />
-				<ThemeSwitch />
+			<header className="bg-background sticky top-0 z-20 flex w-full items-center justify-between gap-6 p-8">
+				<Logo className="text-foreground h-6 w-auto" />
+				<div className="flex items-center gap-6">
+					<CallsToAction
+						className={cn(
+							'pointer-events-none opacity-0 transition-opacity duration-400',
+							((!ctaInView && projectGalleryEnabled) ||
+								selectedProject) &&
+								'pointer-events-auto opacity-100'
+						)}
+						header
+					/>
+					<ThemeSwitch />
+				</div>
 			</header>
 			<main>
 				<section
 					className={cn(
-						'invisible flex h-[45rem] items-center justify-center overflow-hidden blur-md transition-[filter] duration-800',
-						'bg-gray-50 bg-gradient-to-br from-sky-100/20 to-orange-600/10 dark:bg-slate-900/60 dark:from-stone-900/10 dark:to-orange-800/20',
+						'invisible flex h-[32rem] items-center justify-center overflow-hidden blur-md transition-[filter] duration-800 md:h-[48rem]',
+						'bg-gray-600 bg-gradient-to-br from-blue-200/20 to-rose-400/10 dark:bg-slate-950/30 dark:from-stone-900/30 dark:to-orange-800/20',
 						projectGalleryLoaded && 'visible blur-none'
 					)}
 				>
@@ -57,7 +75,7 @@ export default function HomeContent({
 							projectGalleryLoaded && 'scale-100'
 						)}
 					>
-						<h1 className="font-serif text-4xl leading-tight font-normal">
+						<h1 className="font-serif text-3xl leading-tight font-normal md:text-4xl">
 							<span
 								className={cn(
 									'inline-block origin-bottom-right cursor-grab',
@@ -72,56 +90,30 @@ export default function HomeContent({
 							</span>{' '}
 							and I create visual experiences.
 						</h1>
-						<p className="text-md leading-relaxed">
+						<p className="md:text-md text-sm leading-relaxed">
 							I&apos;m a full-stack engineer with a background in
 							graphic design, and my mission is to provide
 							innovative software and digital media solutions.
 							When I&apos;m not in front of a computer, you can
 							find me tinkering on cars or lounging with animals.
 						</p>
-						<div className="flex items-center gap-2.5">
-							<Button
-								asChild
-								className="cursor-pointer bg-amber-600 text-shadow-black/20 text-shadow-md hover:bg-amber-700"
-							>
-								<Link href="/downloads/kevin-beronilla-resume.pdf">
-									<FiFileText className="drop-shadow-xs drop-shadow-black/60" />
-									Resume
-								</Link>
-							</Button>
-							<Button
-								asChild
-								className="cursor-pointer bg-sky-700 text-shadow-black/20 text-shadow-md hover:bg-sky-800"
-							>
-								<Link href="https://www.linkedin.com/in/kevinberonilla/">
-									<FiLinkedin className="drop-shadow-xs drop-shadow-black/60" />
-									LinkedIn
-								</Link>
-							</Button>
-							<Button
-								asChild
-								className="cursor-pointer bg-zinc-700 text-shadow-black/20 text-shadow-md hover:bg-zinc-800"
-							>
-								<Link href="https://github.com/kevinberonilla">
-									<FiGithub className="drop-shadow-xs drop-shadow-black/60" />
-									GitHub
-								</Link>
-							</Button>
-						</div>
+						<CallsToAction ref={ctaRef} />
 					</div>
 				</section>
 				<section>
 					<ProjectGallery
 						className={cn(
-							'pointer-events-none relative z-10 -mt-[45rem] transition-all duration-800',
-							projectGalleryLoaded && 'mt-0',
+							'pointer-events-none relative z-10 -mt-[32rem] transition-all duration-800 md:-mt-[48rem]',
+							projectGalleryLoaded && 'mt-0 md:mt-0',
 							projectGalleryEnabled && 'pointer-events-auto'
 						)}
 						loaded={projectGalleryLoaded}
 						onAllThumbnailsLoaded={handleAllThumbnailsLoaded}
+						onProjectClick={handleProjectClick}
 						projects={projects}
 					/>
 				</section>
+				{selectedProject && selectedProjectRef && <div>test</div>}
 				<div>
 					Categories:
 					{JSON.stringify(categories)}
