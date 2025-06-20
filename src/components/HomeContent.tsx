@@ -174,7 +174,7 @@ export default function HomeContent({
 				<section>
 					<ProjectGallery
 						className={cn(
-							'pointer-events-none relative z-10 -mt-[32rem] transition-all duration-800 md:-mt-[48rem]',
+							'pointer-events-none relative z-10 -mt-[32rem] transition-all duration-800 md:-mt-[42rem]',
 							projectGalleryLoaded && 'mt-0 md:mt-0',
 							projectGalleryEnabled && 'pointer-events-auto'
 						)}
