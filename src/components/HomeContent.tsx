@@ -41,7 +41,8 @@ export default function HomeContent({
 		(project: Project, ref: HTMLLIElement) => {
 			setSelectedProject(project);
 			setSelectedProjectRef(ref);
-		}
+		},
+		[]
 	);
 
 	return (
