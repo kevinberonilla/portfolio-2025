@@ -16,26 +16,47 @@ interface HomeContentProps {
 	projects: Project[];
 }
 
-const ctaButtons: CallToAction[] = [
+const getCtaButtons = (header = false): CallToAction[] => [
 	{
 		ariaLabel: 'View my resume',
 		className: 'bg-amber-600 hover:bg-amber-700',
 		href: '/downloads/kevin-beronilla-resume.pdf',
-		icon: <FiFileText />,
+		icon: (
+			<FiFileText
+				className={cn(
+					'drop-shadow-xs drop-shadow-black/60',
+					header && 'size-3'
+				)}
+			/>
+		),
 		label: 'Resume',
 	},
 	{
 		ariaLabel: 'View my LinkedIn profile',
 		className: 'bg-sky-700 hover:bg-sky-800',
 		href: 'https://www.linkedin.com/in/kevinberonilla/',
-		icon: <FiLinkedin />,
+		icon: (
+			<FiLinkedin
+				className={cn(
+					'drop-shadow-xs drop-shadow-black/60',
+					header && 'size-3'
+				)}
+			/>
+		),
 		label: 'LinkedIn',
 	},
 	{
 		ariaLabel: 'View my GitHub profile',
 		className: 'bg-zinc-700 hover:bg-zinc-800',
 		href: 'https://github.com/kevinberonilla',
-		icon: <FiGithub />,
+		icon: (
+			<FiGithub
+				className={cn(
+					'drop-shadow-xs drop-shadow-black/60',
+					header && 'size-3'
+				)}
+			/>
+		),
 		label: 'GitHub',
 	},
 ];
@@ -84,9 +105,9 @@ export default function HomeContent({
 				<Logo className="text-foreground h-6 w-auto" />
 				<div className="flex items-center gap-6">
 					<CallsToAction
-						buttons={ctaButtons}
+						buttons={getCtaButtons(true)}
 						className={cn(
-							'pointer-events-none opacity-0 transition-opacity duration-400',
+							'pointer-events-none gap-1 opacity-0 transition-opacity duration-400 sm:gap-2',
 							((!ctaInView && projectGalleryEnabled) ||
 								selectedProject) &&
 								'pointer-events-auto opacity-100'
@@ -133,7 +154,7 @@ export default function HomeContent({
 							find me tinkering on cars or lounging with animals.
 						</p>
 						<CallsToAction
-							buttons={ctaButtons}
+							buttons={getCtaButtons()}
 							disabled={projectShown}
 							ref={ctaRef}
 						/>

@@ -50,7 +50,11 @@ const CallsToAction = forwardRef<HTMLDivElement, CallsToActionProps>(
 							tabIndex={disabled ? -1 : 0}
 						>
 							{button.icon}
-							<span className={cn(header && 'hidden sm:inline')}>
+							<span
+								className={cn(
+									header && 'hidden text-xs sm:inline'
+								)}
+							>
 								{button.label}
 							</span>
 						</Link>
