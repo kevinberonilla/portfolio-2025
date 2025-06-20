@@ -1,9 +1,11 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { RefObject, useEffect, useState } from 'react';
 import { FiX } from 'react-icons/fi';
 import { Project } from '@/app/services/projects';
+import Carousel from '@/components/Carousel';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -49,7 +51,7 @@ export default function ProjectModal({
 	return (
 		<div
 			className={cn(
-				'bg-background fixed top-24 left-0 z-50 h-full w-full overflow-hidden transition-[height,width,top,left] duration-300'
+				'bg-background fixed top-24 left-0 z-50 h-[calc(100dvh_-_6rem)] w-full overflow-hidden transition-[height,width,top,left] duration-300'
 			)}
 			{...(mounted
 				? {}
@@ -73,10 +75,10 @@ export default function ProjectModal({
 				src={project.thumbnailUrl}
 				width={600}
 			/>
-			<div className="bg-background/80 absolute inset-0 z-10 p-8">
+			<div className="bg-background/80 absolute inset-0 z-10 overflow-y-auto p-8">
 				<div
 					className={cn(
-						'opacity-0 transition-opacity duration-300',
+						'mx-auto flex w-full max-w-screen-lg flex-col gap-8 opacity-0 transition-opacity duration-300',
 						fullScreen && 'opacity-100'
 					)}
 				>
@@ -85,14 +87,93 @@ export default function ProjectModal({
 							{project.name}
 						</h2>
 						<Button
+							aria-label="Close"
 							className="text-foreground cursor-pointer"
 							onClick={onClose}
 							size="icon"
 							variant="outline"
 						>
 							<FiX />
+							<span className="sr-only">Close</span>
 						</Button>
 					</div>
+					<ul className="flex flex-wrap gap-8">
+						<li className="flex flex-col gap-1">
+							<p className="text-xs font-bold">
+								Year{project.startYear ? 's' : null}
+							</p>
+							<p className="text-sm">
+								{project.startYear
+									? project.startYear + '—' + project.endYear
+									: project.endYear}
+							</p>
+						</li>
+						<li className="flex flex-col gap-1">
+							<p className="text-xs font-bold">Project Owner</p>
+							<p className="text-sm">{project.owner}</p>
+						</li>
+						{project.recognition && (
+							<li className="flex flex-col gap-1">
+								<p className="text-xs font-bold">Recognition</p>
+								<p className="text-sm">{project.recognition}</p>
+							</li>
+						)}
+						{(project.githubRepository ||
+							project.liveSite ||
+							project.appExchangeListing) && (
+							<li className="flex flex-col gap-1">
+								<p className="text-xs font-bold">Links</p>
+								<ul className="kb-list--horizontal">
+									{project.githubRepository && (
+										<li>
+											<Link
+												className="text-primary text-sm hover:text-amber-700"
+												href={project.githubRepository}
+												rel="noreferrer"
+												target="_blank"
+											>
+												GitHub Repository
+											</Link>
+										</li>
+									)}
+									{project.liveSite && (
+										<li>
+											<Link
+												className="text-primary text-sm hover:text-amber-700"
+												href={project.liveSite}
+												rel="noreferrer"
+												target="_blank"
+											>
+												Live Site
+											</Link>
+										</li>
+									)}
+									{project.appExchangeListing && (
+										<li>
+											<Link
+												className="text-primary text-sm hover:text-amber-700"
+												href={
+													project.appExchangeListing
+												}
+												rel="noreferrer"
+												target="_blank"
+											>
+												AppExchange Listing
+											</Link>
+										</li>
+									)}
+								</ul>
+							</li>
+						)}
+						<li className="flex flex-col gap-1">
+							<p className="text-xs font-bold">Contributions</p>
+							<p className="text-sm">{project.contributions}</p>
+						</li>
+					</ul>
+					<Carousel
+						images={project.imageUrls ?? []}
+						videos={project.videos ?? []}
+					/>
 				</div>
 			</div>
 		</div>

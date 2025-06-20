@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { forwardRef } from 'react';
+import { forwardRef, ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -10,7 +10,7 @@ export interface CallToAction {
 	className?: string;
 	disabled?: boolean;
 	href: string;
-	icon: React.ReactNode;
+	icon: ReactNode;
 	label: string;
 }
 interface CallsToActionProps {
@@ -47,7 +47,9 @@ const CallsToAction = forwardRef<HTMLDivElement, CallsToActionProps>(
 									event.preventDefault();
 								}
 							}}
+							rel="noreferrer"
 							tabIndex={disabled ? -1 : 0}
+							target="_blank"
 						>
 							{button.icon}
 							<span

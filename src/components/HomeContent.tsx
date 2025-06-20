@@ -65,7 +65,10 @@ export default function HomeContent({
 	categories,
 	projects,
 }: HomeContentProps) {
-	const { inView: ctaInView, ref: ctaRef } = useInView({ threshold: 1 });
+	const { inView: ctaInView, ref: ctaRef } = useInView({
+		initialInView: false,
+		threshold: 1,
+	});
 	const [projectGalleryLoaded, setProjectGalleryLoaded] = useState(false);
 	const [projectGalleryEnabled, setProjectGalleryEnabled] = useState(false);
 	const [selectedProject, setSelectedProject] = useState<Project | null>(
@@ -99,18 +102,26 @@ export default function HomeContent({
 		document.body.style.overflow = '';
 	};
 
+	const handleLogoClick = () => {
+		handleProjectModalClose();
+		window.scrollTo({ behavior: 'smooth', top: 0 });
+	};
+
 	return (
 		<>
 			<header className="bg-background sticky top-0 z-20 flex w-full items-center justify-between gap-6 p-8">
-				<Logo className="text-foreground h-6 w-auto" />
+				<Logo
+					className="text-foreground h-6 w-auto cursor-pointer"
+					onClick={handleLogoClick}
+				/>
 				<div className="flex items-center gap-6">
 					<CallsToAction
 						buttons={getCtaButtons(true)}
 						className={cn(
-							'pointer-events-none gap-1 opacity-0 transition-opacity duration-400 sm:gap-2',
+							'pointer-events-none gap-1 overflow-hidden *:translate-y-full *:opacity-0 *:transition-all *:duration-200 sm:gap-2',
 							((!ctaInView && projectGalleryEnabled) ||
 								selectedProject) &&
-								'pointer-events-auto opacity-100'
+								'pointer-events-auto *:translate-y-0 *:opacity-100'
 						)}
 						header
 					/>
@@ -120,14 +131,14 @@ export default function HomeContent({
 			<main>
 				<section
 					className={cn(
-						'invisible flex h-[32rem] items-center justify-center overflow-hidden blur-md transition-[filter] duration-800 md:h-[48rem]',
+						'invisible flex h-[32rem] items-center justify-center overflow-hidden transition-none duration-800 md:h-[42rem]',
 						'bg-gray-600 bg-gradient-to-br from-blue-200/20 to-rose-400/10 dark:bg-slate-950/30 dark:from-stone-900/30 dark:to-orange-800/20',
-						projectGalleryLoaded && 'visible blur-none'
+						projectGalleryLoaded && 'visible'
 					)}
 				>
 					<div
 						className={cn(
-							'flex max-w-xl scale-110 flex-col gap-6 p-8 transition-transform duration-1000',
+							'flex max-w-xl scale-110 flex-col gap-6 p-8 transition-transform duration-800 ease-in-out',
 							projectGalleryLoaded && 'scale-100'
 						)}
 					>

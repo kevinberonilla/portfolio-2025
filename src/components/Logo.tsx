@@ -2,15 +2,17 @@
 
 interface LogoProps {
 	className?: string;
+	onClick?: () => void;
 }
 
-export default function Logo({ className }: LogoProps) {
+export default function Logo({ className, onClick }: LogoProps) {
 	return (
 		<svg
 			baseProfile="tiny"
 			className={className}
 			height="93.625px"
 			id="Layer_1"
+			onClick={onClick}
 			overflow="inherit"
 			version="1.1"
 			viewBox="0 0 515.583 93.625"
