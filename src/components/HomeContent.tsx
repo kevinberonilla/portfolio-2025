@@ -3,12 +3,12 @@
 import { useCallback, useRef, useState } from 'react';
 import { FiFileText, FiGithub, FiLinkedin } from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
-import { Project } from '@/app/services/projects';
 import CallsToAction, { CallToAction } from '@/components/CallsToAction';
 import Header from '@/components/Header';
 import ProjectGallery from '@/components/ProjectGallery';
 import ProjectModal from '@/components/ProjectModal';
 import { cn } from '@/lib/utils';
+import { Project } from '@/services/projects';
 
 interface HomeContentProps {
 	projects: Project[];

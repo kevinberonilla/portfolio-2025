@@ -4,10 +4,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { RefObject, useEffect, useState } from 'react';
 import { FiX } from 'react-icons/fi';
-import { Project } from '@/app/services/projects';
 import Carousel from '@/components/Carousel';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { Project } from '@/services/projects';
 
 interface ProjectModalProps {
 	onClose: () => void;

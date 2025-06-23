@@ -1,7 +1,7 @@
 'use server';
 
-import { getProjects } from '@/app/services/projects';
 import HomeContent from '@/components/HomeContent';
+import { getProjects } from '@/services/projects';
 
 export default async function HomeServerComponent() {
 	const { data, error } = await getProjects();

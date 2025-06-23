@@ -10,9 +10,9 @@ import {
 	useState,
 } from 'react';
 import { FiArrowRight } from 'react-icons/fi';
-import { Project } from '@/app/services/projects';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { Project } from '@/services/projects';
 
 interface ProjectGalleryProps {
 	className?: string;
