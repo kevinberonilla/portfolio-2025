@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { ReactNode } from 'react';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import '@/app/globals.css';
+import { ReactNode } from 'react';
 import { Providers } from '@/components/Providers';
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default function RootLayout({
 				<Providers>{children}</Providers>
 				{modal}
 			</body>
+			<GoogleAnalytics gaId="G-RNM45PNX22" />
 		</html>
 	);
 }
