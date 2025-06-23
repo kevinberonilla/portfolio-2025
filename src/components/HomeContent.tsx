@@ -5,10 +5,9 @@ import { FiFileText, FiGithub, FiLinkedin } from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
 import { Project } from '@/app/services/projects';
 import CallsToAction, { CallToAction } from '@/components/CallsToAction';
-import Logo from '@/components/Logo';
+import Header from '@/components/Header';
 import ProjectGallery from '@/components/ProjectGallery';
 import ProjectModal from '@/components/ProjectModal';
-import ThemeSwitch from '@/components/ThemeSwitch';
 import { cn } from '@/lib/utils';
 
 interface HomeContentProps {
@@ -114,25 +113,13 @@ export default function HomeContent({ projects }: HomeContentProps) {
 
 	return (
 		<>
-			<header className="bg-background sticky top-0 z-20 flex w-full items-center justify-between gap-6 p-8">
-				<Logo
-					className="text-foreground h-6 w-auto cursor-pointer sm:h-7"
-					onClick={handleLogoClick}
-				/>
-				<div className="flex items-center gap-2 sm:gap-6">
-					<CallsToAction
-						buttons={getCtaButtons(true)}
-						className={cn(
-							'pointer-events-none gap-1 overflow-hidden p-1 *:translate-y-full *:opacity-0 *:transition-all *:duration-200 sm:gap-2',
-							((!ctaInView && projectGalleryEnabled) ||
-								selectedProject) &&
-								'pointer-events-auto *:translate-y-0 *:opacity-100'
-						)}
-						header
-					/>
-					<ThemeSwitch />
-				</div>
-			</header>
+			<Header
+				buttons={getCtaButtons(true)}
+				hideCtaButtons={
+					(!projectGalleryEnabled || ctaInView) && !selectedProject
+				}
+				onLogoClick={handleLogoClick}
+			/>
 			<main>
 				<section
 					className={cn(
