@@ -12,6 +12,7 @@ export type ProjectEntry = EntryProps<{
 	name: string;
 	owner: string;
 	recognition?: string;
+	slug: string;
 	startYear?: number;
 	thumbnail: Pick<Asset, 'sys'>;
 	videos?: string[];
@@ -19,16 +20,20 @@ export type ProjectEntry = EntryProps<{
 
 export type Project = ProjectEntry['fields'] & {
 	imageUrls: string[];
-	slug: string;
 	thumbnailUrl: string;
 };
 
-interface GetProjectsResult {
+interface GetProjectsResults {
 	data: {
 		projects: Project[];
 	} | null;
 	error: unknown;
 	success: boolean;
+}
+
+interface GetProjectsParams {
+	order?: string;
+	slug?: string;
 }
 
 function buildProjects(projects: ProjectEntry[], assets: Asset[]): Project[] {
@@ -59,9 +64,6 @@ function buildProjects(projects: ProjectEntry[], assets: Asset[]): Project[] {
 
 		formattedProjects.push({
 			imageUrls,
-			slug: encodeURIComponent(
-				project.fields.name.toLowerCase().replaceAll(' ', '-')
-			),
 			thumbnailUrl: `https:${thumbnailUrl}`,
 			...project.fields,
 		});
@@ -70,7 +72,10 @@ function buildProjects(projects: ProjectEntry[], assets: Asset[]): Project[] {
 	return formattedProjects;
 }
 
-export async function getProjects(): Promise<GetProjectsResult> {
+export async function getProjects({
+	order,
+	slug,
+}: GetProjectsParams = {}): Promise<GetProjectsResults> {
 	try {
 		const projectsHeaders = new Headers({
 			Authorization: 'Bearer ' + process.env.CONTENTFUL_ACCESS_TOKEN,
@@ -80,8 +85,15 @@ export async function getProjects(): Promise<GetProjectsResult> {
 			method: 'GET',
 			redirect: 'follow' as RequestRedirect,
 		};
+		const params = new URLSearchParams({
+			content_type: 'project',
+			order:
+				order ||
+				'-fields.endYear,fields.endYearOrder,-fields.startYear,-sys.createdAt',
+			...(slug && { 'fields.slug': slug }),
+		});
 		const response = await fetch(
-			`https://cdn.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/entries?order=-fields.endYear,fields.endYearOrder,-fields.startYear,-sys.createdAt&content_type=project`,
+			`https://cdn.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/entries?${params.toString()}`,
 			requestOptions
 		);
 		const responseJson = await response.json();
