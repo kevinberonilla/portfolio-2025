@@ -9,15 +9,20 @@ export const metadata: Metadata = {
 	title: 'Kevin Beronilla',
 };
 
+interface RootLayoutProps {
+	children: ReactNode;
+	modal: ReactNode;
+}
+
 export default function RootLayout({
 	children,
-}: Readonly<{
-	children: ReactNode;
-}>) {
+	modal,
+}: Readonly<RootLayoutProps>) {
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<body className="antialiased">
 				<Providers>{children}</Providers>
+				{modal}
 			</body>
 		</html>
 	);

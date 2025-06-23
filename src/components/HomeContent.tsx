@@ -1,85 +1,27 @@
 'use client';
 
-import { useCallback, useRef, useState } from 'react';
-import { FiFileText, FiGithub, FiLinkedin } from 'react-icons/fi';
+import { usePathname, useRouter } from 'next/navigation';
+import { useCallback, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import CallsToAction, { CallToAction } from '@/components/CallsToAction';
+import CallsToAction from '@/components/CallsToAction';
 import Header from '@/components/Header';
 import ProjectGallery from '@/components/ProjectGallery';
-import ProjectModal from '@/components/ProjectModal';
-import { cn } from '@/lib/utils';
+import { bgGradient, cn, getCtaButtons } from '@/lib/utils';
 import { Project } from '@/services/projects';
 
 interface HomeContentProps {
 	projects: Project[];
 }
 
-const getCtaButtons = (header = false): CallToAction[] => [
-	{
-		ariaLabel: 'View my resume',
-		className: cn(
-			'bg-amber-600 hover:bg-amber-700',
-			header && 'max-sm:size-6.5'
-		),
-		href: '/downloads/kevin-beronilla-resume.pdf',
-		icon: (
-			<FiFileText
-				className={cn(
-					'drop-shadow-xs drop-shadow-black/60',
-					header && 'size-3'
-				)}
-			/>
-		),
-		label: 'Resume',
-	},
-	{
-		ariaLabel: 'View my LinkedIn profile',
-		className: cn(
-			'bg-sky-700 hover:bg-sky-800',
-			header && 'max-sm:size-6.5'
-		),
-		href: 'https://www.linkedin.com/in/kevinberonilla/',
-		icon: (
-			<FiLinkedin
-				className={cn(
-					'drop-shadow-xs drop-shadow-black/60',
-					header && 'size-3'
-				)}
-			/>
-		),
-		label: 'LinkedIn',
-	},
-	{
-		ariaLabel: 'View my GitHub profile',
-		className: cn(
-			'bg-zinc-700 hover:bg-zinc-800',
-			header && 'max-sm:size-6.5'
-		),
-		href: 'https://github.com/kevinberonilla',
-		icon: (
-			<FiGithub
-				className={cn(
-					'drop-shadow-xs drop-shadow-black/60',
-					header && 'size-3'
-				)}
-			/>
-		),
-		label: 'GitHub',
-	},
-];
-
 export default function HomeContent({ projects }: HomeContentProps) {
+	const router = useRouter();
+	const pathname = usePathname();
 	const { inView: ctaInView, ref: ctaRef } = useInView({
 		initialInView: false,
 		threshold: 1,
 	});
 	const [projectGalleryLoaded, setProjectGalleryLoaded] = useState(false);
 	const [projectGalleryEnabled, setProjectGalleryEnabled] = useState(false);
-	const [selectedProject, setSelectedProject] = useState<Project | null>(
-		null
-	);
-	const selectedProjectTileRef = useRef<HTMLLIElement | null>(null);
-	const projectShown = !!(selectedProject && selectedProjectTileRef.current);
 
 	const handleAllThumbnailsLoaded = useCallback(() => {
 		window.setTimeout(() => {
@@ -91,40 +33,25 @@ export default function HomeContent({ projects }: HomeContentProps) {
 		}, 400);
 	}, []);
 
-	const handleProjectClick = (
-		project: Project,
-		tileElement: HTMLLIElement
-	) => {
-		setSelectedProject(project);
-		selectedProjectTileRef.current = tileElement;
-		document.body.style.overflow = 'hidden';
-	};
-
-	const handleProjectModalClose = () => {
-		setSelectedProject(null);
-		selectedProjectTileRef.current = null;
-		document.body.style.overflow = '';
-	};
-
-	const handleLogoClick = () => {
-		handleProjectModalClose();
-		window.scrollTo({ behavior: 'smooth', top: 0 });
-	};
-
 	return (
 		<>
 			<Header
 				buttons={getCtaButtons(true)}
+				className="sticky top-0 z-20"
 				hideCtaButtons={
-					(!projectGalleryEnabled || ctaInView) && !selectedProject
+					(!projectGalleryEnabled || ctaInView) && pathname === '/'
 				}
-				onLogoClick={handleLogoClick}
+				onLogoClick={
+					pathname === '/'
+						? () => window.scrollTo({ behavior: 'smooth', top: 0 })
+						: () => router.back()
+				}
 			/>
 			<main>
 				<section
 					className={cn(
 						'invisible flex h-[32rem] items-center justify-center overflow-hidden transition-none duration-800 md:h-[42rem]',
-						'bg-gray-600 bg-gradient-to-br from-blue-200/20 to-rose-400/10 dark:bg-slate-950/30 dark:from-stone-900/30 dark:to-orange-800/20',
+						bgGradient,
 						projectGalleryLoaded && 'visible'
 					)}
 				>
@@ -137,7 +64,7 @@ export default function HomeContent({ projects }: HomeContentProps) {
 						<h1 className="font-serif text-3xl leading-tight font-normal md:text-4xl">
 							<span
 								className={cn(
-									'inline-block origin-bottom-right cursor-grab',
+									'mr-2 inline-block origin-bottom-right cursor-grab select-none',
 									projectGalleryLoaded && 'animate-wave'
 								)}
 							>
@@ -158,7 +85,7 @@ export default function HomeContent({ projects }: HomeContentProps) {
 						</p>
 						<CallsToAction
 							buttons={getCtaButtons()}
-							disabled={projectShown}
+							disabled={pathname !== '/'}
 							ref={ctaRef}
 						/>
 					</div>
@@ -170,20 +97,12 @@ export default function HomeContent({ projects }: HomeContentProps) {
 							projectGalleryLoaded && 'mt-0 md:mt-0',
 							projectGalleryEnabled && 'pointer-events-auto'
 						)}
-						disabled={projectShown}
+						disabled={pathname !== '/'}
 						loaded={projectGalleryLoaded}
 						onAllThumbnailsLoaded={handleAllThumbnailsLoaded}
-						onProjectClick={handleProjectClick}
 						projects={projects}
 					/>
 				</section>
-				{projectShown && (
-					<ProjectModal
-						onClose={handleProjectModalClose}
-						project={selectedProject}
-						tileElementRef={selectedProjectTileRef}
-					/>
-				)}
 			</main>
 			<footer className="bg-background text-muted-foreground p-8 text-xs">
 				© 2025 Kevin Beronilla. All featured projects are copyrighted

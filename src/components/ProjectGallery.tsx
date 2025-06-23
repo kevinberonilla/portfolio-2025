@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import {
 	SyntheticEvent,
 	useCallback,
@@ -19,7 +20,6 @@ interface ProjectGalleryProps {
 	disabled?: boolean;
 	loaded: boolean;
 	onAllThumbnailsLoaded: () => void;
-	onProjectClick: (project: Project, tileElement: HTMLLIElement) => void;
 	projects: Project[];
 }
 
@@ -28,7 +28,6 @@ export default function ProjectGallery({
 	disabled = false,
 	loaded = false,
 	onAllThumbnailsLoaded,
-	onProjectClick,
 	projects,
 }: ProjectGalleryProps) {
 	const tileRefs = useRef<HTMLLIElement[]>([]);
@@ -50,33 +49,23 @@ export default function ProjectGallery({
 
 	const handleThumbnailLoad = useCallback(
 		(event: SyntheticEvent<HTMLImageElement>) => {
+			if (loaded) {
+				return;
+			}
+
 			const loadedImage = event.currentTarget;
 
-			if (!loaded) {
-				window.setTimeout(() => {
-					setThumbnailsLoaded((prevState) => {
-						const newState = { ...prevState };
+			window.setTimeout(() => {
+				setThumbnailsLoaded((prevState) => {
+					const newState = { ...prevState };
 
-						newState[loadedImage.dataset.slug as string] = true;
+					newState[loadedImage.dataset.slug as string] = true;
 
-						return newState;
-					});
-				}, Math.random() * 500);
-			}
+					return newState;
+				});
+			}, Math.random() * 500);
 		},
 		[loaded]
-	);
-
-	const handleProjectClick = useCallback(
-		(
-			event: SyntheticEvent<HTMLButtonElement>,
-			project: Project,
-			projectIndex: number
-		) => {
-			event.currentTarget.blur();
-			onProjectClick?.(project, tileRefs.current[projectIndex]);
-		},
-		[onProjectClick]
 	);
 
 	useEffect(() => {
@@ -105,16 +94,18 @@ export default function ProjectGallery({
 							}
 						}}
 					>
-						<button
+						<Link
 							className={cn(
 								'block size-full translate-y-[calc(100%_+_1rem)] cursor-pointer text-left transition-transform duration-200',
 								thumbnailLoaded && 'translate-y-0'
 							)}
-							disabled={disabled}
-							onClick={(event) =>
-								handleProjectClick(event, project, projectIndex)
-							}
-							type="button"
+							href={`/project/${project.slug}`}
+							onClick={(event) => {
+								if (disabled) {
+									event.preventDefault();
+								}
+							}}
+							tabIndex={disabled ? -1 : 0}
 						>
 							<Image
 								alt={project.name}
@@ -158,7 +149,7 @@ export default function ProjectGallery({
 									<FiArrowRight className="size-3" />
 								</div>
 							</span>
-						</button>
+						</Link>
 					</li>
 				);
 			})}

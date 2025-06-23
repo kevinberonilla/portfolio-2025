@@ -99,7 +99,7 @@ export async function getProjects({
 		const responseJson = await response.json();
 		const projects = buildProjects(
 			responseJson.items,
-			responseJson.includes.Asset
+			responseJson.includes?.Asset ?? []
 		);
 
 		return {

@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import CallsToAction, { CallToAction } from '@/components/CallsToAction';
 import Logo from '@/components/Logo';
 import ThemeSwitch from '@/components/ThemeSwitch';
@@ -7,20 +8,29 @@ import { cn } from '@/lib/utils';
 
 interface LogoProps {
 	buttons: CallToAction[];
-	hideCtaButtons: boolean;
-	onLogoClick: () => void;
+	className?: string;
+	hideCtaButtons?: boolean;
+	onLogoClick?: () => void;
 }
 
 export default function Header({
 	buttons,
-	hideCtaButtons,
+	className,
+	hideCtaButtons = false,
 	onLogoClick,
 }: LogoProps) {
+	const router = useRouter();
+
 	return (
-		<header className="bg-background sticky top-0 z-20 flex w-full items-center justify-between gap-6 p-8">
+		<header
+			className={cn(
+				'bg-background flex w-full items-center justify-between gap-6 p-8',
+				className
+			)}
+		>
 			<Logo
 				className="text-foreground h-6 w-auto cursor-pointer sm:h-7"
-				onClick={onLogoClick}
+				onClick={onLogoClick ?? (() => router.push('/'))}
 			/>
 			<div className="flex items-center gap-2 sm:gap-6">
 				<CallsToAction
