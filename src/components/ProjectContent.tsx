@@ -66,7 +66,8 @@ export default function ProjectContent({ mode, project }: ProjectContentProps) {
 			className={cn(
 				'relative overflow-hidden',
 				mode === 'modal' &&
-					'bg-background fixed top-[6.125rem] left-0 z-50 h-[calc(100dvh_-_6rem)] w-full transition-[height,width,top,left] duration-300 sm:top-[6.5rem]'
+					'bg-background fixed top-[6.125rem] left-0 z-50 h-[calc(100dvh_-_6rem)] w-full transition-[height,width,top,left] duration-300 sm:top-[6.5rem]',
+				mode === 'page' && 'flex-1'
 			)}
 			{...(!mounted &&
 				tileElementBoxRef.current && {

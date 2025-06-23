@@ -105,6 +105,9 @@ export default function ProjectGallery({
 									event.preventDefault();
 								}
 							}}
+							onTouchStart={(event) => {
+								event.currentTarget.focus();
+							}}
 							tabIndex={disabled ? -1 : 0}
 						>
 							<Image
@@ -144,7 +147,7 @@ export default function ProjectGallery({
 										);
 									})}
 								</ul>
-								<div className="text-primary mt-auto flex items-center gap-1 text-xs font-bold delay-200 max-sm:hidden">
+								<div className="text-primary mt-auto flex items-center gap-1 text-xs font-bold delay-200">
 									View Project
 									<FiArrowRight className="size-3" />
 								</div>
