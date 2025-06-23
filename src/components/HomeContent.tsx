@@ -64,12 +64,12 @@ export default function HomeContent({ projects }: HomeContentProps) {
 						<h1 className="font-serif text-3xl leading-tight font-normal md:text-4xl">
 							<span
 								className={cn(
-									'mr-2 inline-block origin-bottom-right cursor-grab select-none',
+									'mr-2.5 inline-block origin-bottom-right cursor-grab select-none md:mr-4',
 									projectGalleryLoaded && 'animate-wave'
 								)}
 							>
 								👋
-							</span>{' '}
+							</span>
 							My name is{' '}
 							<span className="text-primary">
 								Kevin Beronilla
