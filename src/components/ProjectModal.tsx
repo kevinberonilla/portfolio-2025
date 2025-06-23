@@ -124,7 +124,7 @@ export default function ProjectModal({
 							project.appExchangeListing) && (
 							<li className="flex flex-col gap-1">
 								<p className="text-xs font-bold">Links</p>
-								<ul className="kb-list--horizontal">
+								<ul className="flex gap-1 *:[:not(:last-child)]:after:content-[',']">
 									{project.githubRepository && (
 										<li>
 											<Link
