@@ -1,7 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { SyntheticEvent, useEffect, useMemo, useRef, useState } from 'react';
+import {
+	SyntheticEvent,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 import { Project } from '@/app/services/projects';
 import { Badge } from '@/components/ui/badge';
@@ -41,27 +48,42 @@ export default function ProjectGallery({
 		[thumbnailsLoaded]
 	);
 
+	const handleThumbnailLoad = useCallback(
+		(event: SyntheticEvent<HTMLImageElement>) => {
+			const loadedImage = event.currentTarget;
+
+			if (!loaded) {
+				window.setTimeout(() => {
+					setThumbnailsLoaded((prevState) => {
+						const newState = { ...prevState };
+
+						newState[loadedImage.dataset.slug as string] = true;
+
+						return newState;
+					});
+				}, Math.random() * 500);
+			}
+		},
+		[loaded]
+	);
+
+	const handleProjectClick = useCallback(
+		(
+			event: SyntheticEvent<HTMLButtonElement>,
+			project: Project,
+			projectIndex: number
+		) => {
+			event.currentTarget.blur();
+			onProjectClick?.(project, tileRefs.current[projectIndex]);
+		},
+		[onProjectClick]
+	);
+
 	useEffect(() => {
 		if (!loaded && totalThumbnailsLoaded === projects.length) {
 			onAllThumbnailsLoaded?.();
 		}
 	}, [loaded, onAllThumbnailsLoaded, projects.length, totalThumbnailsLoaded]);
-
-	function handleThumbnailLoad(event: SyntheticEvent<HTMLImageElement>) {
-		const loadedImage = event.currentTarget;
-
-		if (!loaded) {
-			window.setTimeout(() => {
-				setThumbnailsLoaded((prevState) => {
-					const newState = { ...prevState };
-
-					newState[loadedImage.dataset.slug as string] = true;
-
-					return newState;
-				});
-			}, Math.random() * 500);
-		}
-	}
 
 	return (
 		<ul
@@ -89,20 +111,17 @@ export default function ProjectGallery({
 								thumbnailLoaded && 'translate-y-0'
 							)}
 							disabled={disabled}
-							onClick={(event) => {
-								event.currentTarget.blur();
-								onProjectClick?.(
-									project,
-									tileRefs.current[projectIndex]
-								);
-							}}
+							onClick={(event) =>
+								handleProjectClick(event, project, projectIndex)
+							}
 							type="button"
 						>
 							<Image
 								alt={project.name}
 								className={cn(
 									'size-full origin-center scale-101 object-cover transition-transform duration-200',
-									'group-focus-within/tile:scale-110 group-focus-within/tile:blur-xs group-hover/tile:scale-110 group-hover/tile:blur-xs'
+									'group-focus-within/tile:scale-110 group-focus-within/tile:blur-xs',
+									'group-hover/tile:scale-110 group-hover/tile:blur-xs'
 								)}
 								data-slug={project.slug}
 								height={400}
@@ -116,13 +135,14 @@ export default function ProjectGallery({
 									'bg-background/80 absolute -inset-1 z-10 flex flex-col gap-1 p-8',
 									'opacity-0 transition-opacity duration-200',
 									'*:-translate-x-2 *:opacity-0 *:transition-[opacity,translate]',
-									'group-focus-within/tile:opacity-100 group-focus-within/tile:*:translate-x-0 group-focus-within/tile:*:opacity-100 group-hover/tile:opacity-100 group-hover/tile:*:translate-x-0 group-hover/tile:*:opacity-100'
+									'group-focus-within/tile:opacity-100 group-focus-within/tile:*:translate-x-0 group-focus-within/tile:*:opacity-100',
+									'group-hover/tile:opacity-100 group-hover/tile:*:translate-x-0 group-hover/tile:*:opacity-100'
 								)}
 							>
-								<h3 className="text-lg leading-tight font-bold delay-100">
+								<h3 className="text-md leading-tight font-bold delay-100 sm:text-lg">
 									{project.name}
 								</h3>
-								<ul className="flex flex-wrap gap-1 delay-150">
+								<ul className="flex flex-wrap gap-1 delay-150 max-sm:hidden">
 									{project.categories.map((category) => {
 										return (
 											<li key={category}>
@@ -133,7 +153,7 @@ export default function ProjectGallery({
 										);
 									})}
 								</ul>
-								<div className="text-primary mt-auto flex items-center gap-1 text-xs font-bold delay-200">
+								<div className="text-primary mt-auto flex items-center gap-1 text-xs font-bold delay-200 max-sm:hidden">
 									View Project
 									<FiArrowRight className="size-3" />
 								</div>

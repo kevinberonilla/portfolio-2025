@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { FiFileText, FiGithub, FiLinkedin } from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
 import { Project } from '@/app/services/projects';
@@ -82,7 +82,7 @@ export default function HomeContent({ projects }: HomeContentProps) {
 	const selectedProjectTileRef = useRef<HTMLLIElement | null>(null);
 	const projectShown = !!(selectedProject && selectedProjectTileRef.current);
 
-	const handleAllThumbnailsLoaded = () => {
+	const handleAllThumbnailsLoaded = useCallback(() => {
 		window.setTimeout(() => {
 			setProjectGalleryLoaded(true);
 
@@ -90,7 +90,7 @@ export default function HomeContent({ projects }: HomeContentProps) {
 				setProjectGalleryEnabled(true);
 			}, 800);
 		}, 400);
-	};
+	}, []);
 
 	const handleProjectClick = (
 		project: Project,
