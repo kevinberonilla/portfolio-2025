@@ -3,7 +3,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
+import {
+	Fragment,
+	RefObject,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
 import { FiX } from 'react-icons/fi';
 import Carousel from '@/components/Carousel';
 import { Button } from '@/components/ui/button';
@@ -26,6 +34,36 @@ export default function ProjectContent({ mode, project }: ProjectContentProps) {
 					.querySelector(`li:has([data-slug="${project.slug}"])`)
 					?.getBoundingClientRect()
 			: undefined
+	);
+
+	const links = useMemo(
+		() => [
+			...(project.githubRepository
+				? [
+						{
+							href: project.githubRepository,
+							label: 'GitHub Repository',
+						},
+					]
+				: []),
+			...(project.liveSite
+				? [
+						{
+							href: project.liveSite,
+							label: 'Live Site',
+						},
+					]
+				: []),
+			...(project.appExchangeListing
+				? [
+						{
+							href: project.appExchangeListing,
+							label: 'AppExchange Listing',
+						},
+					]
+				: []),
+		],
+		[project.githubRepository, project.liveSite, project.appExchangeListing]
 	);
 
 	const handleClose = useCallback(() => {
@@ -103,7 +141,7 @@ export default function ProjectContent({ mode, project }: ProjectContentProps) {
 						</h2>
 						<Button
 							aria-label="Close"
-							className="text-foreground cursor-pointer"
+							className="text-foreground -mb-1 cursor-pointer"
 							onClick={handleClose}
 							size="icon"
 							variant="outline"
@@ -112,7 +150,7 @@ export default function ProjectContent({ mode, project }: ProjectContentProps) {
 							<span className="sr-only">Close</span>
 						</Button>
 					</div>
-					<ul className="flex flex-wrap gap-8">
+					<ul className="flex flex-wrap gap-x-8 gap-y-6">
 						<li className="flex flex-col gap-1">
 							<p className="text-xs font-bold">
 								Year{project.startYear ? 's' : null}
@@ -133,51 +171,26 @@ export default function ProjectContent({ mode, project }: ProjectContentProps) {
 								<p className="text-sm">{project.recognition}</p>
 							</li>
 						)}
-						{(project.githubRepository ||
-							project.liveSite ||
-							project.appExchangeListing) && (
+						{links.length > 0 && (
 							<li className="flex flex-col gap-1">
 								<p className="text-xs font-bold">Links</p>
-								<ul className="flex gap-1 *:[:not(:last-child)]:after:content-[',']">
-									{project.githubRepository && (
-										<li>
+								<p className="flex text-sm">
+									{links.map((link, linkIndex) => (
+										<Fragment key={link.label}>
 											<Link
-												className="text-primary text-sm hover:text-amber-700"
-												href={project.githubRepository}
+												className="text-primary hover:text-amber-700"
+												href={link.href}
 												rel="noreferrer"
 												target="_blank"
 											>
-												GitHub Repository
+												{link.label}
 											</Link>
-										</li>
-									)}
-									{project.liveSite && (
-										<li>
-											<Link
-												className="text-primary text-sm hover:text-amber-700"
-												href={project.liveSite}
-												rel="noreferrer"
-												target="_blank"
-											>
-												Live Site
-											</Link>
-										</li>
-									)}
-									{project.appExchangeListing && (
-										<li>
-											<Link
-												className="text-primary text-sm hover:text-amber-700"
-												href={
-													project.appExchangeListing
-												}
-												rel="noreferrer"
-												target="_blank"
-											>
-												AppExchange Listing
-											</Link>
-										</li>
-									)}
-								</ul>
+											{linkIndex !== links.length - 1 && (
+												<span className="mr-1">,</span>
+											)}
+										</Fragment>
+									))}
+								</p>
 							</li>
 						)}
 						<li className="flex flex-col gap-1">

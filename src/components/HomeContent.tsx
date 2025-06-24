@@ -76,7 +76,7 @@ export default function HomeContent({ projects }: HomeContentProps) {
 							</span>{' '}
 							and I create visual experiences.
 						</h1>
-						<p className="md:text-md text-sm leading-relaxed">
+						<p className="text-sm leading-relaxed">
 							I&apos;m a full-stack engineer with a background in
 							graphic design, and my mission is to provide
 							innovative software and digital media solutions.
