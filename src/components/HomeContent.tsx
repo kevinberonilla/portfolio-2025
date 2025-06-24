@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import CallsToAction from '@/components/CallsToAction';
 import Header from '@/components/Header';
@@ -10,7 +10,7 @@ import { bgGradient, cn, getCtaButtons } from '@/lib/utils';
 import { Project } from '@/services/projects';
 
 interface HomeContentProps {
-	projects: Project[];
+	projects: Pick<Project, 'categories' | 'name' | 'slug' | 'thumbnailUrl'>[];
 }
 
 export default function HomeContent({ projects }: HomeContentProps) {
@@ -31,6 +31,10 @@ export default function HomeContent({ projects }: HomeContentProps) {
 				setProjectGalleryEnabled(true);
 			}, 800);
 		}, 400);
+	}, []);
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
 	}, []);
 
 	return (

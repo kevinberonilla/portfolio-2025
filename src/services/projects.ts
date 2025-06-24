@@ -33,6 +33,7 @@ interface GetProjectsResults {
 
 interface GetProjectsParams {
 	order?: string;
+	select?: string;
 	slug?: string;
 }
 
@@ -74,6 +75,7 @@ function buildProjects(projects: ProjectEntry[], assets: Asset[]): Project[] {
 
 export async function getProjects({
 	order,
+	select,
 	slug,
 }: GetProjectsParams = {}): Promise<GetProjectsResults> {
 	try {
@@ -90,6 +92,7 @@ export async function getProjects({
 			order:
 				order ||
 				'-fields.endYear,fields.endYearOrder,-fields.startYear,-sys.createdAt',
+			...(select && { select }),
 			...(slug && { 'fields.slug': slug }),
 		});
 		const response = await fetch(

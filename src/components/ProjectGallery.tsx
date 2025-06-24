@@ -20,7 +20,7 @@ interface ProjectGalleryProps {
 	disabled?: boolean;
 	loaded: boolean;
 	onAllThumbnailsLoaded: () => void;
-	projects: Project[];
+	projects: Pick<Project, 'categories' | 'name' | 'slug' | 'thumbnailUrl'>[];
 }
 
 export default function ProjectGallery({
