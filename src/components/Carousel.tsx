@@ -1,7 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { useCallback, useEffect, useRef, useState, MouseEvent } from 'react';
+import {
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+	MouseEvent,
+	useMemo,
+} from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -19,6 +26,11 @@ export default function Carousel({
 }: CarouselProps) {
 	const carousel = useRef<HTMLDivElement>(null);
 	const [activeIndex, setActiveIndex] = useState(0);
+	const sliderButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+	const slides = useMemo(() => {
+		return images.concat(videos);
+	}, [images, videos]);
 
 	const back = useCallback(() => {
 		if (activeIndex === 0) {
@@ -124,26 +136,38 @@ export default function Carousel({
 						})}
 				</div>
 			</div>
-			{images.length + videos.length > 1 && (
+			{slides.length > 1 && (
 				<>
-					<div className="border-input absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-black/20 p-2">
-						{(images || [])
-							.concat(videos || [])
-							.map((slide, slideIndex) => {
-								return (
-									<button
-										className={cn(
-											'size-2 cursor-pointer rounded-full bg-white hover:opacity-50',
-											slideIndex === activeIndex &&
-												'bg-primary hover:opacity-100'
-										)}
-										data-index={slideIndex}
-										key={slide}
-										onClick={handleNavigationClick}
-										type="button"
-									/>
-								);
-							})}
+					<div className="border-input absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-black/20 p-1.5">
+						{slides.map((slide, slideIndex) => {
+							return (
+								<button
+									className={cn(
+										'size-2 cursor-pointer rounded-full bg-white opacity-50 transition-opacity duration-100 hover:opacity-100',
+										slideIndex === activeIndex &&
+											'opacity-0'
+									)}
+									data-index={slideIndex}
+									key={slide}
+									onClick={handleNavigationClick}
+									ref={(el) => {
+										sliderButtonRefs.current[slideIndex] =
+											el;
+									}}
+									type="button"
+								/>
+							);
+						})}
+
+						<div
+							className="bg-primary linear pointer-events-none absolute z-10 size-2 rounded-full transition-all duration-100"
+							style={{
+								left: sliderButtonRefs.current[activeIndex]
+									?.offsetLeft,
+								top: sliderButtonRefs.current[activeIndex]
+									?.offsetTop,
+							}}
+						/>
 					</div>
 					<Button
 						className={cn(
