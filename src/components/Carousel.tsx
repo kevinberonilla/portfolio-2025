@@ -143,7 +143,7 @@ export default function Carousel({
 							return (
 								<button
 									className={cn(
-										'size-2 cursor-pointer rounded-full bg-white opacity-50 transition-opacity duration-100 hover:opacity-100',
+										'size-2 cursor-pointer rounded-full bg-white transition-opacity duration-100 hover:opacity-50',
 										slideIndex === activeIndex &&
 											'opacity-0'
 									)}
