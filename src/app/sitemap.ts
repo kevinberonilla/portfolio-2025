@@ -3,6 +3,13 @@ import { BASE_URL } from '@/lib/constants';
 import { getProjects } from '@/services/projects';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+	const homepage: MetadataRoute.Sitemap[number] = {
+		changeFrequency: 'monthly',
+		lastModified: new Date(),
+		priority: 1,
+		url: BASE_URL,
+	};
+
 	const { data, error } = await getProjects({
 		select: 'fields.slug,fields.name',
 	});
@@ -10,28 +17,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	if (error) {
 		console.error(error);
 
-		return [];
+		return [homepage];
 	}
 
 	if (!data) {
-		return [];
+		return [homepage];
 	}
 
 	const { projects } = data;
 
 	return [
-		{
-			changeFrequency: 'monthly',
-			lastModified: new Date(),
-			priority: 1,
-			url: BASE_URL,
-		},
-		...projects.map((project) => ({
-			changeFrequency:
-				'monthly' as MetadataRoute.Sitemap[number]['changeFrequency'],
-			lastModified: new Date(),
-			priority: 0.5,
-			url: `${BASE_URL}/projects/${project.slug}`,
-		})),
+		homepage,
+		...projects.map(
+			(project) =>
+				({
+					changeFrequency: 'monthly',
+					lastModified: new Date(),
+					priority: 0.5,
+					url: `${BASE_URL}/projects/${project.slug}`,
+				}) as MetadataRoute.Sitemap[number]
+		),
 	];
 }
