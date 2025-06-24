@@ -35,7 +35,7 @@ export function getCtaButtons(header = false): CallToAction[] {
 				'bg-sky-700 hover:bg-sky-800',
 				header && 'max-sm:size-6.5'
 			),
-			href: 'https://www.linkedin.com/in/kevinberonilla/',
+			href: 'https://www.linkedin.com/in/kevinberonilla',
 			icon: (
 				<FiLinkedin
 					className={cn(
