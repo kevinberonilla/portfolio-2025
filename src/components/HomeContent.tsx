@@ -17,7 +17,9 @@ export default function HomeContent({ projects }: HomeContentProps) {
 	const router = useRouter();
 	const pathname = usePathname();
 	const { inView: ctaInView, ref: ctaRef } = useInView({
-		initialInView: false,
+		fallbackInView: true,
+		initialInView: true,
+		rootMargin: '-60px 0px',
 		threshold: 1,
 	});
 	const [projectGalleryLoaded, setProjectGalleryLoaded] = useState(false);
