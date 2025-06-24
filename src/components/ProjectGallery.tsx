@@ -99,7 +99,7 @@ export default function ProjectGallery({
 								'block size-full translate-y-[calc(100%_+_1rem)] cursor-pointer text-left transition-transform duration-200',
 								thumbnailLoaded && 'translate-y-0'
 							)}
-							href={`/project/${project.slug}`}
+							href={`/projects/${project.slug}`}
 							onClick={(event) => {
 								if (disabled) {
 									event.preventDefault();
