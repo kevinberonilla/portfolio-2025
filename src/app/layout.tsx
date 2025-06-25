@@ -1,19 +1,23 @@
+import '@/app/globals.css';
 import type { Metadata } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
-import '@/app/globals.css';
 import { ReactNode } from 'react';
 import { Providers } from '@/components/Providers';
-
-export const metadata: Metadata = {
-	description:
-		'The portfolio of Kevin Beronilla, a designer, developer, photographer, and video editor.',
-	title: 'Kevin Beronilla',
-};
+import { SITE_TITLE, SITE_URL } from '@/lib/constants';
 
 interface RootLayoutProps {
 	children: ReactNode;
 	modal: ReactNode;
 }
+
+export const metadata: Metadata = {
+	alternates: {
+		canonical: SITE_URL,
+	},
+	description:
+		'The portfolio of Kevin Beronilla, a designer, developer, photographer, and video editor.',
+	title: SITE_TITLE,
+};
 
 export default function RootLayout({
 	children,

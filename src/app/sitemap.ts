@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { BASE_URL } from '@/lib/constants';
+import { SITE_URL } from '@/lib/constants';
 import { getProjects } from '@/services/projects';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -7,7 +7,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		changeFrequency: 'monthly',
 		lastModified: new Date(),
 		priority: 1,
-		url: BASE_URL,
+		url: SITE_URL,
 	};
 
 	const { data, error } = await getProjects({
@@ -34,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 					changeFrequency: 'monthly',
 					lastModified: new Date(),
 					priority: 0.5,
-					url: `${BASE_URL}/projects/${project.slug}`,
+					url: `${SITE_URL}/projects/${project.slug}`,
 				}) as MetadataRoute.Sitemap[number]
 		),
 	];

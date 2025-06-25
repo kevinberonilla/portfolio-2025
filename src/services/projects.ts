@@ -60,12 +60,12 @@ function buildProjects(projects: ProjectEntry[], assets: Asset[]): Project[] {
 		);
 		const thumbnailUrl =
 			typeof thumbnailAsset?.fields.file.url === 'string'
-				? thumbnailAsset.fields.file.url
+				? `https:${thumbnailAsset.fields.file.url}`
 				: '';
 
 		formattedProjects.push({
 			imageUrls,
-			thumbnailUrl: `https:${thumbnailUrl}`,
+			thumbnailUrl,
 			...project.fields,
 		});
 	});

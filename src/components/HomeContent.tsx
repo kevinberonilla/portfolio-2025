@@ -6,6 +6,7 @@ import { useInView } from 'react-intersection-observer';
 import CallsToAction from '@/components/CallsToAction';
 import Header from '@/components/Header';
 import ProjectGallery from '@/components/ProjectGallery';
+import { SITE_TITLE } from '@/lib/constants';
 import { bgGradient, cn, getCtaButtons } from '@/lib/utils';
 import { Project } from '@/services/projects';
 
@@ -111,9 +112,9 @@ export default function HomeContent({ projects }: HomeContentProps) {
 				</section>
 			</main>
 			<footer className="bg-background text-muted-foreground p-8 text-xs">
-				© 2025 Kevin Beronilla. All featured projects are copyrighted
-				by the respective individuals and organizations of which they
-				are a representation of.
+				© {new Date().getFullYear()} Kevin Beronilla. All featured
+				projects are copyrighted by the respective individuals and
+				organizations of which they are a representation of.
 			</footer>
 		</>
 	);

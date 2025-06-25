@@ -15,6 +15,7 @@ import {
 import { FiX } from 'react-icons/fi';
 import Carousel from '@/components/Carousel';
 import { Button } from '@/components/ui/button';
+import { SITE_TITLE } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { Project } from '@/services/projects';
 
@@ -85,8 +86,9 @@ export default function ProjectContent({ mode, project }: ProjectContentProps) {
 			}
 		};
 
-		window.addEventListener('keydown', handleKeyDown);
+		window.document.title = `${project.name} - ${SITE_TITLE}`;
 		window.document.body.style.overflow = 'hidden';
+		window.addEventListener('keydown', handleKeyDown);
 		setMounted(true);
 
 		window.setTimeout(() => {
@@ -97,7 +99,7 @@ export default function ProjectContent({ mode, project }: ProjectContentProps) {
 			window.removeEventListener('keydown', handleKeyDown);
 			window.document.body.style.overflow = '';
 		};
-	}, [handleClose, mode, project.slug]);
+	}, [handleClose, mode, project.name, project.slug]);
 
 	return (
 		<div
