@@ -47,6 +47,7 @@ const CallsToAction = forwardRef<HTMLDivElement, CallsToActionProps>(
 									event.preventDefault();
 								}
 							}}
+							prefetch={false}
 							rel="noreferrer"
 							tabIndex={disabled ? -1 : 0}
 							target="_blank"
