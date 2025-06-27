@@ -133,9 +133,9 @@ export default function ProjectGallery({
 									'group-hover/tile:opacity-100 group-hover/tile:*:translate-x-0 group-hover/tile:*:opacity-100'
 								)}
 							>
-								<h3 className="text-base leading-tight font-bold delay-100 sm:text-lg">
+								<h2 className="text-base leading-tight font-bold delay-100 sm:text-lg">
 									{project.name}
-								</h3>
+								</h2>
 								<ul className="flex flex-wrap gap-1 delay-150 max-sm:hidden">
 									{project.categories.map((category) => {
 										return (

@@ -25,6 +25,9 @@ export default function RootLayout({
 }: Readonly<RootLayoutProps>) {
 	return (
 		<html lang="en" suppressHydrationWarning>
+			<head>
+				<link href="https://fonts.gstatic.com" rel="preconnect" />
+			</head>
 			<body className="antialiased">
 				<Providers>{children}</Providers>
 				{modal}

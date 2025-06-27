@@ -29,6 +29,7 @@ export default function ThemeSwitch({ className }: ThemeSwitchProps) {
 			<FiSun />
 			{mounted ? (
 				<Switch
+					aria-label="Toggle Theme"
 					checked={resolvedTheme === 'dark'}
 					className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-primary cursor-pointer"
 					id="theme-switch"
