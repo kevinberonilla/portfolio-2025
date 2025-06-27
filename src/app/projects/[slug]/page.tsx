@@ -33,7 +33,7 @@ export async function generateMetadata({
 		alternates: {
 			canonical: `${SITE_URL}/projects/${slug}`,
 		},
-		title: `${project.name} - ${SITE_TITLE}`,
+		title: `${project.name} | ${SITE_TITLE}`,
 	};
 }
 

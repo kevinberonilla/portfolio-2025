@@ -86,7 +86,7 @@ export default function ProjectContent({ mode, project }: ProjectContentProps) {
 			}
 		};
 
-		window.document.title = `${project.name} - ${SITE_TITLE}`;
+		window.document.title = `${project.name} | ${SITE_TITLE}`;
 		window.document.body.style.overflow = 'hidden';
 		window.addEventListener('keydown', handleKeyDown);
 		setMounted(true);
