@@ -6,7 +6,6 @@ import { useInView } from 'react-intersection-observer';
 import CallsToAction from '@/components/CallsToAction';
 import Header from '@/components/Header';
 import ProjectGallery from '@/components/ProjectGallery';
-import { SITE_TITLE } from '@/lib/constants';
 import { bgGradient, cn, getCtaButtons } from '@/lib/utils';
 import { Project } from '@/services/projects';
 
