@@ -14,8 +14,15 @@ export const metadata: Metadata = {
 	alternates: {
 		canonical: SITE_URL,
 	},
+	authors: [{ name: 'Kevin Beronilla', url: 'https://kevinberonilla.com' }],
+	creator: 'Kevin Beronilla',
 	description:
-		'The portfolio of Kevin Beronilla, a designer, developer, photographer, and video editor.',
+		'The portfolio site of Kevin Beronilla, an experienced full-stack engineer with a strong front-end development focus and a background in graphic design.',
+	publisher: 'Kevin Beronilla',
+	robots: {
+		follow: true,
+		index: true,
+	},
 	title: SITE_TITLE,
 };
 

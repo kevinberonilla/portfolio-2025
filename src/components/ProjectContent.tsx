@@ -138,9 +138,15 @@ export default function ProjectContent({ mode, project }: ProjectContentProps) {
 					)}
 				>
 					<div className="flex justify-between gap-8">
-						<h2 className="text-2xl font-bold md:text-3xl">
-							{project.name}
-						</h2>
+						{mode === 'page' ? (
+							<h1 className="text-2xl font-bold md:text-3xl">
+								{project.name}
+							</h1>
+						) : (
+							<h2 className="text-2xl font-bold md:text-3xl">
+								{project.name}
+							</h2>
+						)}
 						<Button
 							aria-label="Close"
 							className="text-foreground -mb-1 cursor-pointer"
