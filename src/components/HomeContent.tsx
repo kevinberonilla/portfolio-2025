@@ -57,7 +57,7 @@ export default function HomeContent({ projects }: HomeContentProps) {
 			<main>
 				<section
 					className={cn(
-						'invisible flex h-[32rem] items-center justify-center overflow-hidden transition-none duration-800 md:h-[42rem]',
+						'invisible flex h-[36rem] items-center justify-center overflow-hidden transition-none duration-800 md:h-[42rem]',
 						bgGradient,
 						projectGalleryLoaded && 'visible'
 					)}
@@ -84,11 +84,16 @@ export default function HomeContent({ projects }: HomeContentProps) {
 							and I create visual experiences.
 						</h1>
 						<p className="text-sm leading-relaxed">
-							I&apos;m a full-stack engineer with a background in
-							graphic design, and my mission is to provide
-							innovative software and digital media solutions.
-							When I&apos;m not in front of a computer, you can
-							find me tinkering on cars or lounging with animals.
+							I&apos;m a full-stack software engineer with a focus
+							on front-end development and a background in graphic
+							design. When I&apos;m not building innovative web
+							solutions, you&apos;ll find me working on cars,
+							playing online games, or lounging with my two cats.
+						</p>
+						<p className="text-sm leading-relaxed">
+							If you&apos;re interested in learning more about my
+							work, check out the resources and sample projects
+							below.
 						</p>
 						<CallsToAction
 							buttons={getCtaButtons()}
@@ -100,7 +105,7 @@ export default function HomeContent({ projects }: HomeContentProps) {
 				<section>
 					<ProjectGallery
 						className={cn(
-							'pointer-events-none relative z-10 -mt-[32rem] transition-all duration-800 md:-mt-[42rem]',
+							'pointer-events-none relative z-10 -mt-[36rem] transition-all duration-800 md:-mt-[42rem]',
 							projectGalleryLoaded && 'mt-0 md:mt-0',
 							projectGalleryEnabled && 'pointer-events-auto'
 						)}
