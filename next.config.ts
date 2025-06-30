@@ -5,15 +5,6 @@ const nextConfig: NextConfig = {
 	images: {
 		domains: ['localhost', 'images.ctfassets.net'],
 	},
-	redirects: async () => {
-		return [
-			{
-				destination: '/projects/:slug',
-				permanent: true,
-				source: '/#!/:slug',
-			},
-		];
-	},
 };
 
 export default nextConfig;
