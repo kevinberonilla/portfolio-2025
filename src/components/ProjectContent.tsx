@@ -122,7 +122,7 @@ export default function ProjectContent({ mode, project }: ProjectContentProps) {
 			<Image
 				alt={project.name}
 				className={cn(
-					'size-full origin-center scale-110 object-cover blur-xs',
+					'size-full origin-center scale-110 transform-gpu object-cover blur-xs',
 					mounted && 'blur-lg'
 				)}
 				height={400}
