@@ -85,14 +85,14 @@ export default function HomeContent({ projects }: HomeContentProps) {
 						<p className="text-sm leading-relaxed">
 							I&apos;m a full-stack software engineer with a focus
 							on front-end development and a background in graphic
-							design. When I&apos;m not building innovative web
-							solutions, you&apos;ll find me working on cars,
-							playing online games, or lounging with my two cats.
+							design. Outside of work, you can find me tinkering
+							on cars, playing online games, or lounging with my
+							two cats.
 						</p>
 						<p className="text-sm leading-relaxed">
-							If you&apos;re interested in learning more about my
-							work, check out the resources and sample projects
-							below.
+							If you&apos;re interested in learning more about
+							what I can build for you, check out the resources
+							and sample projects below.
 						</p>
 						<CallsToAction
 							buttons={getCtaButtons()}
