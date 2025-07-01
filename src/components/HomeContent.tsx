@@ -36,8 +36,16 @@ export default function HomeContent({ projects }: HomeContentProps) {
 	}, []);
 
 	useEffect(() => {
+		const hash = window.location.hash;
+
+		// Reset scroll to top on page load
 		window.scrollTo(0, 0);
-	}, []);
+
+		// Handle legacy hash links
+		if (hash.startsWith('#!/')) {
+			router.push(hash.replace('#!', 'projects'));
+		}
+	}, [router]);
 
 	return (
 		<>
@@ -49,7 +57,12 @@ export default function HomeContent({ projects }: HomeContentProps) {
 				}
 				onLogoClick={
 					pathname === '/'
-						? () => window.scrollTo({ behavior: 'smooth', top: 0 })
+						? () =>
+								window.scrollTo({
+									behavior: 'smooth',
+									left: 0,
+									top: 0,
+								})
 						: () => router.back()
 				}
 			/>
