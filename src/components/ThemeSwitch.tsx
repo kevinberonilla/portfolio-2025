@@ -27,7 +27,7 @@ export default function ThemeSwitch({ className }: ThemeSwitchProps) {
 			htmlFor="theme-switch"
 		>
 			<FiSun />
-			{mounted ? (
+			{mounted && !!resolvedTheme ? (
 				<Switch
 					aria-label="Toggle Theme"
 					checked={resolvedTheme === 'dark'}
@@ -38,7 +38,7 @@ export default function ThemeSwitch({ className }: ThemeSwitchProps) {
 					}
 				/>
 			) : (
-				<div className="h-4.5 w-8 animate-pulse rounded-full bg-gray-200 dark:bg-gray-700" />
+				<div className="bg-primary/20 h-4.5 w-8 rounded-full" />
 			)}
 			<FiMoon />
 		</label>
