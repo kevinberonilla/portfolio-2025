@@ -51,6 +51,7 @@ export default function HomeContent({ projects }: HomeContentProps) {
 		<div className="flex h-dvh flex-col">
 			<Header
 				buttons={getCtaButtons(true)}
+				className="relative z-20"
 				hideCtaButtons={
 					(!projectGalleryEnabled || ctaInView) && pathname === '/'
 				}
