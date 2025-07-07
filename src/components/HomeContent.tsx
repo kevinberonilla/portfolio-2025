@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import CallsToAction from '@/components/CallsToAction';
+import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import ProjectGallery from '@/components/ProjectGallery';
 import { bgGradient, cn, getCtaButtons } from '@/lib/utils';
@@ -127,11 +128,7 @@ export default function HomeContent({ projects }: HomeContentProps) {
 						/>
 					</section>
 				</main>
-				<footer className="bg-background text-muted-foreground p-8 text-xs">
-					© {new Date().getFullYear()} Kevin Beronilla. All featured
-					projects are copyrighted by the respective individuals and
-					organizations of which they are a representation of.
-				</footer>
+				<Footer />
 			</div>
 		</div>
 	);

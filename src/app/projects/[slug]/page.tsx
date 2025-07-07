@@ -50,7 +50,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 		>
 			<div className="flex h-dvh flex-col">
 				<Header buttons={getCtaButtons(true)} />
-				<ProjectServerComponent mode="page" slug={slug} />
+				<main className="flex-1 overflow-y-auto">
+					<ProjectServerComponent mode="page" slug={slug} />
+				</main>
 			</div>
 		</Suspense>
 	);
