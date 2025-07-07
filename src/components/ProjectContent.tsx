@@ -87,7 +87,7 @@ export default function ProjectContent({ mode, project }: ProjectContentProps) {
 		};
 
 		window.document.title = `${project.name} | ${SITE_TITLE}`;
-		window.document.body.style.overflow = 'hidden';
+		window.document.body.style.overscrollBehavior = 'none';
 		window.addEventListener('keydown', handleKeyDown);
 		setMounted(true);
 
@@ -97,7 +97,7 @@ export default function ProjectContent({ mode, project }: ProjectContentProps) {
 
 		return () => {
 			window.removeEventListener('keydown', handleKeyDown);
-			window.document.body.style.overflow = '';
+			window.document.body.style.overscrollBehavior = '';
 		};
 	}, [handleClose, mode, project.name, project.slug]);
 
