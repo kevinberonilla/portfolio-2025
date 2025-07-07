@@ -87,7 +87,6 @@ export default function ProjectContent({ mode, project }: ProjectContentProps) {
 		};
 
 		window.document.title = `${project.name} | ${SITE_TITLE}`;
-		window.document.body.style.overflow = 'hidden';
 		window.addEventListener('keydown', handleKeyDown);
 		setMounted(true);
 
@@ -97,7 +96,6 @@ export default function ProjectContent({ mode, project }: ProjectContentProps) {
 
 		return () => {
 			window.removeEventListener('keydown', handleKeyDown);
-			window.document.body.style.overflow = '';
 		};
 	}, [handleClose, mode, project.name, project.slug]);
 
@@ -106,8 +104,7 @@ export default function ProjectContent({ mode, project }: ProjectContentProps) {
 			className={cn(
 				'relative overflow-hidden',
 				mode === 'modal' &&
-					'bg-background fixed top-[6.125rem] left-0 z-10 h-[calc(100dvh_-_6rem)] w-full transition-[height,width,top,left] duration-300 sm:top-[6.5rem]',
-				mode === 'page' && 'flex-1'
+					'bg-background absolute top-[6.125rem] left-0 z-10 h-[calc(100dvh_-_6.125rem)] w-full transition-[height,width,top,left] duration-300 sm:top-[6.5rem] sm:h-[calc(100dvh_-_6.5rem)]'
 			)}
 			{...(!mounted &&
 				tileElementBoxRef.current && {
