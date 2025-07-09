@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import CallsToAction from '@/components/CallsToAction';
 import Footer from '@/components/Footer';
@@ -24,6 +24,7 @@ export default function HomeContent({ projects }: HomeContentProps) {
 	});
 	const [projectGalleryLoaded, setProjectGalleryLoaded] = useState(false);
 	const [projectGalleryEnabled, setProjectGalleryEnabled] = useState(false);
+	const mainContainerRef = useRef<HTMLDivElement>(null);
 
 	const handleAllThumbnailsLoaded = useCallback(() => {
 		window.setTimeout(() => {
@@ -35,13 +36,10 @@ export default function HomeContent({ projects }: HomeContentProps) {
 		}, 400);
 	}, []);
 
+	// Handle legacy hash links
 	useEffect(() => {
 		const hash = window.location.hash;
 
-		// Reset scroll to top on page load
-		window.scrollTo(0, 0);
-
-		// Handle legacy hash links
 		if (hash.startsWith('#!/')) {
 			router.push(hash.replace('#!', 'projects'));
 		}
@@ -58,15 +56,14 @@ export default function HomeContent({ projects }: HomeContentProps) {
 				onLogoClick={
 					pathname === '/'
 						? () =>
-								window.scrollTo({
+								mainContainerRef.current?.scrollTo({
 									behavior: 'smooth',
-									left: 0,
 									top: 0,
 								})
 						: () => router.back()
 				}
 			/>
-			<div className="overflow-y-auto">
+			<div className="overflow-y-auto" ref={mainContainerRef}>
 				<main>
 					<section
 						className={cn(
