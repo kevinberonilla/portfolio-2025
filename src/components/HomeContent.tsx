@@ -98,7 +98,7 @@ export default function HomeContent({ projects }: HomeContentProps) {
 								focus on front-end development and a background
 								in graphic design. Outside of work, you can find
 								me tinkering on cars, playing online games, or
-								lounging with my two cats.
+								lounging with my cats.
 							</p>
 							<p className="text-sm leading-relaxed">
 								If you&apos;re interested in learning more about
